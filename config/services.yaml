@@ -8,3 +8,13 @@ services:
     PierreLemee\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    PierreLemee\Twig\TwigExtension:
+        class: 'PierreLemee\Twig\TwigExtension'
+        arguments:
+            $markdownDirectory: '%kernel.project_dir%/templates/markdown'
+
+    ParsedownExtra:
+        class: 'ParsedownExtra'
+
+

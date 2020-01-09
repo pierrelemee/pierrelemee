@@ -31,84 +31,72 @@
             <a href="https://www.twitter.com/pitipout" title="Mon Twitter (personnel)" class="twitter" target="_blank"></a>
             <a href="https://www.last.fm/user/pitipout/library/artists" title="Mon Last.fm top artistes" class="lastfm" target="_blank"></a>                </div>
         <div id="intro">
-            <h3 class="section-title intro-title">Intro</h3>
-            <p>
-                Le développement logiciel est pour moi comme un <strong>jeu de construction</strong>: en empilant tout plein de
-                blocs de taille, couleur et formes différentes et fort d'une imagination sans fin on peut faire d'une idée une
-                réalisation réelle, solide et palpable. Transformant chaque esquisse en un projet <strong>realiste</strong>.
-            </p>
-            <p>
-                Voilà donc qui je suis: un développeur de 33 ans <strong>passionné</strong> avec toujours une âme de jeune garçon
-                espiègle. Je cherche sans cesse à savoir comment sont construits les bâtiments / logiciels / librairies, <strong>curieux</strong>
-                de comprendre comment marchent les choses. J'aime être un constructeur, empilant les lignes de code, établissant
-                des algorithmes, structurant les objets and concevant les plans de mes projets. Je suis un amoureux du Web, de
-                Linux et de l'Open Source, je sais concevoir, implémenter, tester, déployer, requêter et automatiser. Je suis
-                <strong>bâtisseur logiciel</strong>.
-            </p>
+            {{ markdown('intro.md', language)|raw }}
         </div>
         <div id="skills-inner">
-
+            {% block skills %}
             <h3 class="section-title skills-title">Tech</h3>
 
             <div class="skills-category">
-                <h4>Backend</h4>
+                <h4>{{ 'skills.backend.title'|trans({}, 'resume', language) }}</h4>
                 <ul>
-                    <li><span class="level level-blue level-5"></span>PHP</li>
-                    <li><span class="level level-blue level-4"></span>Symfony 3/4</li>
-                    <li><span class="level level-blue level-4"></span>JAVA</li>
-                    <li><span class="level level-blue level-4"></span>RabbitMQ</li>
-                    <li><span class="level level-blue level-3"></span>Spring boot</li>
-                    <li><span class="level level-blue level-2"></span>Kafka</li>
-                    <li><span class="level level-blue level-3"></span>Python</li>
-                    <li><span class="level level-blue level-2"></span>C++</li>
+                    <li><span class="level level-blue level-5"></span>{{ 'skills.backend.levels.php'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-4"></span>{{ 'skills.backend.levels.symfony'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-4"></span>{{ 'skills.backend.levels.java'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-4"></span>{{ 'skills.backend.levels.rabbitmq'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-3"></span>{{ 'skills.backend.levels.spring'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-2"></span>{{ 'skills.backend.levels.kafka'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-3"></span>{{ 'skills.backend.levels.python'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-2"></span>{{ 'skills.backend.levels.c++'|trans({}, 'resume', language) }}</li>
                 </ul>
             </div>
 
             <div class="skills-category">
-                <h4>Data</h4>
+                <h4>{{ 'skills.data.title'|trans({}, 'resume', language) }}</h4>
                 <ul>
-                    <li><span class="level level-yellow level-5"></span>MySQL</li>
-                    <li><span class="level level-yellow level-4"></span>Hadoop</li>
-                    <li><span class="level level-yellow level-3"></span>Spark</li>
-                    <li><span class="level level-yellow level-3"></span>HPE Vertica</li>
-                    <li><span class="level level-yellow level-3"></span>Sqlite</li>
-                    <li><span class="level level-yellow level-2"></span>Cassandra</li>
-                    <li><span class="level level-yellow level-2"></span>PostgreSQL</li>
+                    <li><span class="level level-yellow level-5"></span>{{ 'skills.data.levels.mysql'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-yellow level-4"></span>{{ 'skills.data.levels.es'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-yellow level-3"></span>{{ 'skills.data.levels.hadoop'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-yellow level-3"></span>{{ 'skills.data.levels.spark'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-yellow level-3"></span>{{ 'skills.data.levels.vertica'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-yellow level-2"></span>{{ 'skills.data.levels.sqlite'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-yellow level-2"></span>{{ 'skills.data.levels.postgre'|trans({}, 'resume', language) }}</li>
                 </ul>
             </div>
 
             <div class="skills-category">
-                <h4>System</h4>
+                <h4>{{ 'skills.system.title'|trans({}, 'resume', language) }}</h4>
                 <ul>
-                    <li><span class="level level-black level-5"></span>Bash scripting</li>
-                    <li><span class="level level-black level-3"></span>Nginx / Apache</li>
-                    <li><span class="level level-black level-3"></span>AWS</li>
-                    <li><span class="level level-black level-3"></span>Ansible</li>
-                    <li><span class="level level-black level-2"></span>Redis</li>
+                    <li><span class="level level-black level-5"></span>{{ 'skills.system.levels.bash'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-black level-3"></span>{{ 'skills.system.levels.webserver'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-black level-3"></span>{{ 'skills.system.levels.aws'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-black level-3"></span>{{ 'skills.system.levels.ansible'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-black level-2"></span>{{ 'skills.system.levels.redis'|trans({}, 'resume', language) }}</li>
                 </ul>
             </div>
 
             <div class="skills-category">
-                <h4>Frontend</h4>
+                <h4>{{ 'skills.frontend.title'|trans({}, 'resume', language) }}</h4>
                 <ul>
-                    <li><span class="level level-red level-5"></span>HTML5 / CSS3</li>
-                    <li><span class="level level-red level-4"></span>Javascript</li>
-                    <li><span class="level level-red level-3"></span>Bootstrap</li>
-                    <li><span class="level level-red level-3"></span>React</li>
-                    <li><span class="level level-red level-2"></span>Flex</li>
+                    <li><span class="level level-red level-5"></span>{{ 'skills.frontend.levels.html'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-red level-4"></span>{{ 'skills.frontend.levels.javascript'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-red level-3"></span>{{ 'skills.frontend.levels.bootstrap'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-red level-3"></span>{{ 'skills.frontend.levels.react'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-red level-2"></span>{{ 'skills.frontend.levels.flex'|trans({}, 'resume', language) }}</li>
                 </ul>
             </div>
 
             <div class="skills-category">
-                <h4>Extra</h4>
+                <h4>{{ 'skills.extra.title'|trans({}, 'resume', language) }}</h4>
                 <ul>
-                    <li><span class="level level-blue level-5"></span>Git</li>
-                    <li><span class="level level-blue level-3"></span>Maven</li>
-                    <li><span class="level level-blue level-3"></span>Composer</li>
-                    <li><span class="level level-blue level-2"></span>The Gimp</li>
-                    <li><span class="level level-blue level-2"></span>SVN</li>
+                    <li><span class="level level-blue level-5"></span>{{ 'skills.extra.levels.git'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-3"></span>{{ 'skills.extra.levels.composer'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-3"></span>{{ 'skills.extra.levels.maven'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-2"></span>{{ 'skills.extra.levels.gimp'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-2"></span>{{ 'skills.extra.levels.svn'|trans({}, 'resume', language) }}</li>
                 </ul>
             </div>
+            {% endblock %}
         </div>
         <div id="jobs">
             <h3 class="section-title jobs-title">Expérience pro</h3>
@@ -256,67 +244,7 @@
         </div>
     </div>
     <div id="skills-outter">
-
-        <h3 class="section-title skills-title">Tech</h3>
-
-        <div class="skills-category">
-            <h4>Backend</h4>
-            <ul>
-                <li><span class="level level-blue level-5"></span>PHP</li>
-                <li><span class="level level-blue level-4"></span>Symfony 2</li>
-                <li><span class="level level-blue level-4"></span>JAVA</li>
-                <li><span class="level level-blue level-4"></span>RabbitMQ</li>
-                <li><span class="level level-blue level-3"></span>Spring boot</li>
-                <li><span class="level level-blue level-2"></span>Kafka</li>
-                <li><span class="level level-blue level-2"></span>GraphQL</li>
-                <li><span class="level level-blue level-2"></span>C++</li>
-            </ul>
-        </div>
-
-        <div class="skills-category">
-            <h4>Data</h4>
-            <ul>
-                <li><span class="level level-yellow level-5"></span>MySQL</li>
-                <li><span class="level level-yellow level-4"></span>Hadoop</li>
-                <li><span class="level level-yellow level-3"></span>Spark</li>
-                <li><span class="level level-yellow level-3"></span>HPE Vertica</li>
-                <li><span class="level level-yellow level-3"></span>Sqlite</li>
-                <li><span class="level level-yellow level-2"></span>Cassandra</li>
-                <li><span class="level level-yellow level-2"></span>PostgreSQL</li>
-            </ul>
-        </div>
-
-        <div class="skills-category">
-            <h4>System</h4>
-            <ul>
-                <li><span class="level level-black level-5"></span>Bash scripting</li>
-                <li><span class="level level-black level-3"></span>Python</li>
-                <li><span class="level level-black level-3"></span>Nginx / Apache</li>
-                <li><span class="level level-black level-2"></span>Ansible</li>
-                <li><span class="level level-black level-2"></span>Redis</li>
-            </ul>
-        </div>
-
-        <div class="skills-category">
-            <h4>Frontend</h4>
-            <ul>
-                <li><span class="level level-red level-5"></span>HTML5 / CSS3</li>
-                <li><span class="level level-red level-4"></span>Javascript</li>
-                <li><span class="level level-red level-3"></span>Bootstrap</li>
-                <li><span class="level level-red level-2"></span>Flex</li>
-            </ul>
-        </div>
-
-        <div class="skills-category">
-            <h4>Extra</h4>
-            <ul>
-                <li><span class="level level-blue level-5"></span>Git</li>
-                <li><span class="level level-blue level-3"></span>Maven</li>
-                <li><span class="level level-blue level-3"></span>Composer</li>
-                <li><span class="level level-blue level-2"></span>The Gimp</li>
-                <li><span class="level level-blue level-2"></span>SVN</li>
-            </ul>
-        </div>
+        {{ block('skills') }}
     </div>
 {% endblock %}
 

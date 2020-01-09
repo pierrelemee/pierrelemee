@@ -1,0 +1,47 @@
+skills:
+    backend:
+        title: 'Backend'
+        levels:
+            php: 'PHP 7+'
+            symfony: 'Symfony 3.4+'
+            java: 'JAVA'
+            rabbitmq: 'RabbitMQ'
+            spring: 'Spring boot'
+            kafka: 'Kafka'
+            python: 'Python'
+            c++: 'C++'
+    data:
+        title: 'Data'
+        levels:
+            mysql: 'MySQL'
+            es: 'Elasticsearch'
+            hadoop: 'Hadoop'
+            spark: 'Spark'
+            vertica: 'HPE Vertica'
+            sqlite: 'Sqlite'
+            cassandra: 'Cassandra'
+            postgre: 'PostgreSQL'
+    system:
+        title: 'Système'
+        levels:
+            bash: 'Bash'
+            webserver: 'Nginx / Apache'
+            aws: 'AWS'
+            ansible: 'Ansible'
+            redis: 'Redis'
+    frontend:
+        title: 'Frontend'
+        levels:
+            html: 'HTML5 / CSS3'
+            javascript: 'Javascript'
+            bootstrap: 'Bootstrap 4'
+            react: 'React'
+            flex: 'Flex'
+    extra:
+        title: 'Extra'
+        levels:
+            git: 'Git'
+            composer: 'Composer'
+            maven: 'Maven'
+            gimp: 'The Gimp'
+            svn: 'SVN'
