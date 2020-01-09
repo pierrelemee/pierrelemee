@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="{{ language|default('fr') }}">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{{ title|default('') }}{% endblock %}</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" xmlns="http://www.w3.org/1999/html">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

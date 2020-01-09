@@ -333,7 +333,7 @@ template {
 
 @font-face {
     font-family: "BigNoodleTitling";
-    src: url("/fonts/bignoodletitling.ttf") format('truetype');
+    src: url("/public/fontsc/fonts/bignoodletitling.ttf") format('truetype');
 }
 
 body {

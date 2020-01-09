@@ -1,49 +1,50 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Pierre LEMÉE - Software engineer - 33</title>
+{% extends '_base.html.twig' %}
 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" xmlns="http://www.w3.org/1999/html">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <link rel="stylesheet" media="print" type="text/css" title="style" href="/public/css/print.css">
-        <link rel="stylesheet" media="screen and (max-width: 768px)" type="text/css" title="style" href="/public/css/mobile.css">
-        <link rel="stylesheet" media="screen and (min-width: 769px) and (max-width: 992px) and (orientation:portrait)" type="text/css" title="style" href="/public/css/tablet.css">
-        <link rel="stylesheet" media="screen and (min-width: 993px)" type="text/css" title="style" href="/public/css/desktop.css">
-        <style type="text/css">
-            @font-face {
-                font-family: "BigNoodleTitling";
-                font-weight: bold;
-                font-style: normal;
-                src: url(/public/fonts/BigNoodleTitling.ttf);
-            }
-        </style>
-        <link rel="icon" type="image/x-icon" href="/public/favicon.ico">
-    </head>
-    <body>
-        <div id="blocks" style="left: 0;">
-        </div>
+{% block stylesheets %}
+    <link rel="stylesheet" media="print" type="text/css" title="style" href="{{ asset('css/print.css') }}">
+    <link rel="stylesheet" media="screen and (max-width: 768px)" type="text/css" title="style" href="{{ asset('css/mobile.css')}}">
+    <link rel="stylesheet" media="screen and (min-width: 769px) and (max-width: 992px) and (orientation:portrait)" type="text/css" title="style" href="{{ asset('css/tablet.css') }}">
+    <link rel="stylesheet" media="screen and (min-width: 993px)" type="text/css" title="style" href="{{ asset('css/desktop.css') }}">
+    <style type="text/css">
+        @font-face {
+            font-family: "BigNoodleTitling";
+            font-weight: bold;
+            font-style: normal;
+            src: url('{{ asset('fonts/BigNoodleTitling.ttf') }}');
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div id="blocks" style="left: 0;">
+    </div>
     <div id="content">
         <div id="header">
             <div id="name">
-                <h1>Pierre LEMÉE // <span class="soft-title">Software engineer</span></h1>
+                <h1>Pierre LEMÉE // <span class="soft-title">Ingénieur logiciel</span></h1>
             </div>
             <div id="job">
-                <h3>Male // <span class="soft-title">33</span> // <span class="soft-title">French</span></h3>
+                <h3>Homme // <span class="soft-title">33</span> // <span class="soft-title">Français</span></h3>
             </div>                </div>
         <div id="social">
-            <a href="https://www.github.com/pierrelemee" title="My Github profile" class="github" target="_blank"></a>
-            <a href="https://www.twitter.com/pitipout" title="My Twitter" class="twitter" target="_blank"></a>
-            <a href="https://www.last.fm/user/pitipout/library/artists" title="My Last.fm artists top" class="lastfm" target="_blank"></a>                </div>
+            <a href="https://www.github.com/pierrelemee" title="Mon profil Github" class="github" target="_blank"></a>
+            <a href="https://www.twitter.com/pitipout" title="Mon Twitter (personnel)" class="twitter" target="_blank"></a>
+            <a href="https://www.last.fm/user/pitipout/library/artists" title="Mon Last.fm top artistes" class="lastfm" target="_blank"></a>                </div>
         <div id="intro">
             <h3 class="section-title intro-title">Intro</h3>
-            <p>To me, software development is like a <strong>construction game</strong>: by assembling blocks of different sizes, colors and shapes and an
-                endless imagination you can turn any idea to a living, solid and palpable realization. Making any outline to a <strong>realistic</strong>
-                project. </p>
-            <p>This is who I am then: a 33-years old <strong>passionated</strong> developer / playful kid. I'm constantly investigating on how buildings /
-                softwares / frameworks are made, <strong>curious</strong> about how the things truly work. I love to be a builder, stacking line of codes,
-                setting up algorithms, structuring objects and designing the map of my projects. I'm a Web, Linux and Open Source lover,
-                I know how to design, code, test, deploy, query and automatize. I'm a <strong>software builder</strong>.</p>
+            <p>
+                Le développement logiciel est pour moi comme un <strong>jeu de construction</strong>: en empilant tout plein de
+                blocs de taille, couleur et formes différentes et fort d'une imagination sans fin on peut faire d'une idée une
+                réalisation réelle, solide et palpable. Transformant chaque esquisse en un projet <strong>realiste</strong>.
+            </p>
+            <p>
+                Voilà donc qui je suis: un développeur de 33 ans <strong>passionné</strong> avec toujours une âme de jeune garçon
+                espiègle. Je cherche sans cesse à savoir comment sont construits les bâtiments / logiciels / librairies, <strong>curieux</strong>
+                de comprendre comment marchent les choses. J'aime être un constructeur, empilant les lignes de code, établissant
+                des algorithmes, structurant les objets and concevant les plans de mes projets. Je suis un amoureux du Web, de
+                Linux et de l'Open Source, je sais concevoir, implémenter, tester, déployer, requêter et automatiser. Je suis
+                <strong>bâtisseur logiciel</strong>.
+            </p>
         </div>
         <div id="skills-inner">
 
@@ -79,11 +80,11 @@
             <div class="skills-category">
                 <h4>System</h4>
                 <ul>
-                    <li><span class="level level-red level-5"></span>HTML5 / CSS3</li>
-                    <li><span class="level level-red level-4"></span>Javascript</li>
-                    <li><span class="level level-red level-3"></span>Bootstrap</li>
-                    <li><span class="level level-red level-3"></span>React</li>
-                    <li><span class="level level-red level-2"></span>Flex</li>
+                    <li><span class="level level-black level-5"></span>Bash scripting</li>
+                    <li><span class="level level-black level-3"></span>Nginx / Apache</li>
+                    <li><span class="level level-black level-3"></span>AWS</li>
+                    <li><span class="level level-black level-3"></span>Ansible</li>
+                    <li><span class="level level-black level-2"></span>Redis</li>
                 </ul>
             </div>
 
@@ -93,6 +94,7 @@
                     <li><span class="level level-red level-5"></span>HTML5 / CSS3</li>
                     <li><span class="level level-red level-4"></span>Javascript</li>
                     <li><span class="level level-red level-3"></span>Bootstrap</li>
+                    <li><span class="level level-red level-3"></span>React</li>
                     <li><span class="level level-red level-2"></span>Flex</li>
                 </ul>
             </div>
@@ -109,22 +111,32 @@
             </div>
         </div>
         <div id="jobs">
-            <h3 class="section-title jobs-title">Work experience</h3>
+            <h3 class="section-title jobs-title">Expérience pro</h3>
+
+            <!-- Bloom at Work -->
             <h4>CTO // <span class="soft-title">Bloom at Work</span></h4>
             <h5>Paris // <span class="soft-title">january 2018 (current)</span></h5>
-            <p>I joined <a href="https://www.bloom-at-work.com/">Bloom at Work</a> to manage the technical part and contribute making the company grow.
-                Bloom at Work's mission is to promote well-being at work by offering a talking frame to a company's employees about their
+
+            <p>
+                J'ai rejoint <a href="https://www.bloom-at-work.com/">Bloom at Work</a>  pour prendre en main la partie technique
+                et contribuer à faire grandir la société.
+                La mission de Bloom at Work est de promouvoir le bien-être au travail en offrant
+
+
+                by offering a talking frame to a company's employees about their
                 well being at work, through playful but concrete quizes, and by rendering these statistics data to teamn and HR managers.</p>
             <p>I hold the technical vision and undertake architectural decisions. All by assuming functions of front and back end developer,
                 data and system engineer, before soon federate a team around a technical project for which I'm the warrant.</p>
             <p><strong>Stack tech:</strong> PHP, MySQL, Git, RabbitMQ, React, AWS</p>
-            <h4>Backend developer // <span class="soft-title">Panda Creative</span></h4>
+
+            <!-- Panda Creative / Billogram -->
+            <h4>Architecte // <span class="soft-title">Panda Creative / Billogram</span></h4>
             <h5>Stockholm // <span class="soft-title">2017</span></h5>
-            <p>As a backend developer, I participated in maintaining and integrating new of features on the websites the studio creates,
-                including <a href="https://www.multilotto.com/en">Multilotto</a> and <a href="https://www.observify.com/">Observify</a>.</p>
-            <p>But I was mostly focused on global engineering aspects, such as improving unit testing, setting a Continuous Integration
-                flow or optimizing deployments.</p>
+
+            <p></p>
             <p><strong>Tech stack:</strong> PHP, MySQL, Git, Redis, Elasticsearch, RabbitMQ</p>
+
+            <!-- Sens Critique -->
             <h4>CTO // <span class="soft-title">SensCritique</span></h4>
             <h5>Paris // <span class="soft-title">august 2016 - january 2017</span></h5>
             <p>I had the privilege to be the CTO of <a href="http://www.senscritique.com/">SensCritique</a>, which is a website offering members to rate or review
@@ -139,24 +151,29 @@
                     process</li>
             </ul>
             <p><strong>Tech stack:</strong> PHP, MySQL, Git, Redis, Java, Elasticsearch, RabbitMQ, GraphQL, Ansible, Bash</p>
+
+            <!-- BlaBlaCar -->
             <h4>Developer // <span class="soft-title">BlaBlaCar</span></h4>
             <h5>Paris // <span class="soft-title">july 2014 - august 2016</span></h5>
-            <p>I had the chance to join the <a href="https://www.blablacar.fr/">Blablacar</a>'s tech team, the world's biggest ridesharing community.
-                I spent half of my time as a <em>web developer</em>, maintaining and improving web and mobile websites. I participated in writing functional testing scenarios with <strong>Behat</strong> to perform <strong>Selenium</strong>
-                based test processes.</p>
-            <p>But I mainly contributed to the BI / data team, creating an event data collection flow to track event actions, aiming at
-                better understanding how members interact with the product. I achieved this by:</p>
+            <p>
+                Lead tech au sein de la BI team de Blablacar, le site de référence en matière de covoiturage.
+
+                Gestion d'un flux de collecte de données BI orientées actions utlisateur (PHP et Symfony 2, MySQL et Rabbit MQ)
+                Mise en place des outils de stockage et processing des données sur la base BI (Hadoop (HDFS, Pig script et Hive, synchronisation avec la base analytique HPE Vertica
+                Développement d'outils interne de migration de données (Java et Spring, RabbitMQ)
+                Mise en place d'un canal alternatif de collecte de données côté client (PHP, Javascript, NGinx,Java,Cassandra et
             <ul>
-                <li>creating a backend-side data collection flow backend servers to the BI datawarehouse
-                    database in a dedicated worker, and storage to <strong>Hadoop</strong></li>
-                <li>batch scripts Hadoop side unserialize data and synchronize it with  <em>Vertica</em>, the columnar
-                    database used for analytical queries</li>
-                <li>create a client side tracker (aimed to get around cached pages), called <em>Tracktor</em> (contraction of Tracking data collector).
-                    From <strong>Javascript</strong> through <em>AJAX</em> calls to a "dumb" <strong>Nginx</strong> used to collect access logs, published to <strong>Kafka</strong> and hooked to <strong>HDFS</strong></li>
-                <li>map <strong>Hive</strong> and <strong>Impala</strong> on <strong>HDFS</strong> for high volume slow queries</li>
+                <li>Gestion d'un flux de collecte de données BI orientées actions utlisateur (PHP et Symfony 2, MySQL et Rabbit MQ)</li>
+                <li>Mise en place des outils de stockage et processing des données sur la base BI (Hadoop (HDFS, Pig script et Hive, synchronisation avec la base analytique HPE Vertica</li>
+                <li>Développement d'outils interne de migration de données (Java et Spring, RabbitMQ)</li>
+                <li>Mise en place d'un canal alternatif de collecte de données côté client (PHP, Javascript, NGinx,Java,Cassandra et Hadoop)</li>
             </ul>
-            <p><strong>Tech stack:</strong> PHP, Symfony, MySQL, Doctrine, Git, Redis, Elasticsearch, RabbitMQ, Hadoop (HDFS, Hive, Imapala, Pig-latin, Spark),
-                HPE Vertica, Kafka</p>
+            <p>
+                <strong>Tech stack:</strong> PHP, Symfony, MySQL, Doctrine, Git, Redis, Elasticsearch, RabbitMQ, Hadoop (HDFS, Hive, Imapala, Pig-latin, Spark),
+                HPE Vertica, Kafka
+            </p>
+
+            <!-- Altran -->
             <h4>Software engineer // <span class="soft-title">Altran</span></h4>
             <h5>Sophia Antipolis // <span class="soft-title">july 2013 - june 2014</span></h5>
             <p>I joined <strong>Altran</strong> as a consulting engineer as part of a service center team for <a href="https://www.gemalto.com/">Gemalto</a>,
@@ -170,6 +187,8 @@
                 <li>intervention in the software configuration management and the system compilation and generation maintenance</li>
             </ul>
             <p><strong>Tech stack:</strong> JAVA, JSF, SOAP, JPA, Bash, Python, Weblogic, JMX, Groovy, Maven, SVN</p>
+
+            <!-- Thales Alenia Space -->
             <h4>Software engineer // <span class="soft-title">Thales Alenia Space</span></h4>
             <h5>Cannes // <span class="soft-title">april 2011 - may 2013</span></h5>
             <p>I joined <a href="https://www.thalesgroup.com/fr/global-activities/espace">Thales Alenia Space</a>, the European leader in satellite
@@ -183,6 +202,8 @@
                     meetings and reporting work progress</li>
             </ul>
             <p><strong>Tech stack:</strong> JAVA, Swing, Maven, JNI, C, Bash</p>
+
+            <!-- Toutletoutim -->
             <h4>Web developer // <span class="soft-title">Freelance</span></h4>
             <h5>Saint Hilaire du Harcouët // <span class="soft-title">2009 - 2011</span></h5>
             <p>After graduating university, I decided to become a freelance web developer to strengthen my web developemnt skills. I designed,
@@ -205,6 +226,7 @@
                 <li>designed, developing and testing the media server providing web radios from the Orange web service to all connected devices,
                     discovering web services (both <strong>REST</strong> and <strong>SOAP</strong>)</li>
             </ul>
+
         </div>
         <div id="education">
             <h3 class="section-title education-title">Education</h3>
@@ -296,8 +318,12 @@
             </ul>
         </div>
     </div>
-    <script type="text/javascript" src="/public/js/jquery-3.js"></script>
-    <script type="text/javascript" src="/public/js/Wall.js"></script>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/jquery-3.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/Wall.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var links = new Map();
@@ -312,5 +338,6 @@
             });
         }
     </script>
-    </body>
-</html>
+{% endblock %}
+
+
