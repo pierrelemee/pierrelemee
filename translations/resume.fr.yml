@@ -1,0 +1,105 @@
+sections:
+    experience:
+        title: "Expérience pro"
+        bloomatwork:
+            job_title: "CTO"
+            company: "Bloom at Work"
+            location: "Paris"
+            period: "2018 - aujourd'hui"
+        billogram:
+            job_title: "Architecte"
+            company: "Billogram"
+            location: "Stockholm"
+            period: "2017"
+        senscritique:
+            job_title: "CTO"
+            company: "Sens Critique"
+            location: "Paris"
+            period: "Août 2016 - Janvier 2017"
+        blablacar:
+            job_title: "Développeur web & data"
+            company: "BlaBlaCar"
+            location: "Paris"
+            period: "Juillet 2014 - Juillet 2016"
+        altran:
+            job_title: "Ingénieur logiciel"
+            company: "Altran"
+            location: "Paris"
+            period: "Juillet 2013 - Juin 2014"
+        thales:
+            job_title: "Ingénieur Logiciel"
+            company: "Thales Alenia Space"
+            location: "Cannes"
+            period: "Avril 2011 - Mai 2013"
+        toutletoutim:
+            job_title: "Développeur web"
+            company: "Toutletoutim"
+            location: "Normandie"
+            period: "2009 - 2011"
+        orange:
+            job_title: "Développeur"
+            company: "BlaBlaCar"
+            location: "Caen"
+            period: "2009"
+    scholarship:
+        title: "Scolarité"
+        afti:
+            title: "Software engineer MBA"
+            establishment: "CFA AFTI"
+            location: "Orsay"
+            period: "2013"
+        unicaen:
+            title: "Licence informatique"
+            establishment: "Université de Caen"
+            location: "Caen"
+            period: "2009"
+    misc:
+        title: "Divers"
+
+skills:
+    backend:
+        title: 'Backend'
+        levels:
+            php: 'PHP 7+'
+            symfony: 'Symfony 3.4+'
+            java: 'JAVA'
+            rabbitmq: 'RabbitMQ'
+            spring: 'Spring boot'
+            kafka: 'Kafka'
+            python: 'Python'
+            c++: 'C++'
+    data:
+        title: 'Data'
+        levels:
+            mysql: 'MySQL'
+            es: 'Elasticsearch'
+            hadoop: 'Hadoop'
+            spark: 'Spark'
+            vertica: 'HPE Vertica'
+            sqlite: 'Sqlite'
+            cassandra: 'Cassandra'
+            postgre: 'PostgreSQL'
+    system:
+        title: 'Système'
+        levels:
+            bash: 'Bash'
+            webserver: 'Nginx / Apache'
+            aws: 'AWS'
+            ansible: 'Ansible'
+            redis: 'Redis'
+    frontend:
+        title: 'Frontend'
+        levels:
+            html: 'HTML5 / CSS3'
+            javascript: 'Javascript'
+            bootstrap: 'Bootstrap 4'
+            react: 'React'
+            flex: 'Flex'
+    extra:
+        title: 'Extra'
+        levels:
+            git: 'Git'
+            composer: 'Composer'
+            maven: 'Maven'
+            gimp: 'The Gimp'
+            svn: 'SVN'

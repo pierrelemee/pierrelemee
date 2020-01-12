@@ -1,0 +1,205 @@
+{% extends '_base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" media="print" type="text/css" title="style" href="{{ asset('css/print.css') }}">
+    <link rel="stylesheet" media="screen and (max-width: 768px)" type="text/css" title="style" href="{{ asset('css/mobile.css')}}">
+    <link rel="stylesheet" media="screen and (min-width: 769px) and (max-width: 992px) and (orientation:portrait)" type="text/css" title="style" href="{{ asset('css/tablet.css') }}">
+    <link rel="stylesheet" media="screen and (min-width: 993px)" type="text/css" title="style" href="{{ asset('css/desktop.css') }}">
+    <style type="text/css">
+        @font-face {
+            font-family: "BigNoodleTitling";
+            font-weight: bold;
+            font-style: normal;
+            src: url('{{ asset('fonts/BigNoodleTitling.ttf') }}');
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div id="blocks" style="left: 0;">
+    </div>
+    <div id="content">
+        <div id="header">
+            <div id="name">
+                <h1>Pierre LEMÉE // <span class="soft-title">Ingénieur logiciel</span></h1>
+            </div>
+            <div id="job">
+                <h3>Homme // <span class="soft-title">33</span> // <span class="soft-title">Français</span></h3>
+            </div>                </div>
+        <div id="social">
+            <a href="https://www.github.com/pierrelemee" title="Mon profil Github" class="github" target="_blank"></a>
+            <a href="https://www.twitter.com/pitipout" title="Mon Twitter (personnel)" class="twitter" target="_blank"></a>
+            <a href="https://www.last.fm/user/pitipout/library/artists" title="Mon Last.fm top artistes" class="lastfm" target="_blank"></a>                </div>
+        <div id="intro">
+            {{ markdown('intro.md', language)|raw }}
+        </div>
+        <div id="skills-inner">
+            {% block skills %}
+            <h3 class="section-title skills-title">Tech</h3>
+
+            <div class="skills-category">
+                <h4>{{ 'skills.backend.title'|trans({}, 'resume', language) }}</h4>
+                <ul>
+                    <li><span class="level level-blue level-5"></span>{{ 'skills.backend.levels.php'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-4"></span>{{ 'skills.backend.levels.symfony'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-4"></span>{{ 'skills.backend.levels.java'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-4"></span>{{ 'skills.backend.levels.rabbitmq'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-3"></span>{{ 'skills.backend.levels.spring'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-2"></span>{{ 'skills.backend.levels.kafka'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-3"></span>{{ 'skills.backend.levels.python'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-2"></span>{{ 'skills.backend.levels.c++'|trans({}, 'resume', language) }}</li>
+                </ul>
+            </div>
+
+            <div class="skills-category">
+                <h4>{{ 'skills.data.title'|trans({}, 'resume', language) }}</h4>
+                <ul>
+                    <li><span class="level level-yellow level-5"></span>{{ 'skills.data.levels.mysql'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-yellow level-4"></span>{{ 'skills.data.levels.es'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-yellow level-3"></span>{{ 'skills.data.levels.hadoop'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-yellow level-3"></span>{{ 'skills.data.levels.spark'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-yellow level-3"></span>{{ 'skills.data.levels.vertica'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-yellow level-2"></span>{{ 'skills.data.levels.sqlite'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-yellow level-2"></span>{{ 'skills.data.levels.postgre'|trans({}, 'resume', language) }}</li>
+                </ul>
+            </div>
+
+            <div class="skills-category">
+                <h4>{{ 'skills.system.title'|trans({}, 'resume', language) }}</h4>
+                <ul>
+                    <li><span class="level level-black level-5"></span>{{ 'skills.system.levels.bash'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-black level-3"></span>{{ 'skills.system.levels.webserver'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-black level-3"></span>{{ 'skills.system.levels.aws'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-black level-3"></span>{{ 'skills.system.levels.ansible'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-black level-2"></span>{{ 'skills.system.levels.redis'|trans({}, 'resume', language) }}</li>
+                </ul>
+            </div>
+
+            <div class="skills-category">
+                <h4>{{ 'skills.frontend.title'|trans({}, 'resume', language) }}</h4>
+                <ul>
+                    <li><span class="level level-red level-5"></span>{{ 'skills.frontend.levels.html'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-red level-4"></span>{{ 'skills.frontend.levels.javascript'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-red level-3"></span>{{ 'skills.frontend.levels.bootstrap'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-red level-3"></span>{{ 'skills.frontend.levels.react'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-red level-2"></span>{{ 'skills.frontend.levels.flex'|trans({}, 'resume', language) }}</li>
+                </ul>
+            </div>
+
+            <div class="skills-category">
+                <h4>{{ 'skills.extra.title'|trans({}, 'resume', language) }}</h4>
+                <ul>
+                    <li><span class="level level-blue level-5"></span>{{ 'skills.extra.levels.git'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-3"></span>{{ 'skills.extra.levels.composer'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-3"></span>{{ 'skills.extra.levels.maven'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-2"></span>{{ 'skills.extra.levels.gimp'|trans({}, 'resume', language) }}</li>
+                    <li><span class="level level-blue level-2"></span>{{ 'skills.extra.levels.svn'|trans({}, 'resume', language) }}</li>
+                </ul>
+            </div>
+            {% endblock %}
+        </div>
+        <div id="jobs">
+            <h3 class="section-title jobs-title">{{ 'sections.experience.title'|trans({}, 'resume', language) }}</h3>
+
+            {# Bloom at Work #}
+            <h4>{{ 'sections.experience.bloomatwork.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.bloomatwork.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.bloomatwork.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.bloomatwork.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('bloomatwork.md', language)|raw }}
+
+            {# Billogram #}
+            <h4>{{ 'sections.experience.billogram.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.billogram.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.billogram.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.billogram.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('billogram.md', language)|raw }}
+
+            {# Sens Critique #}
+            <h4>{{ 'sections.experience.senscritique.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.senscritique.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.senscritique.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.senscritique.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('senscritique.md', language)|raw }}
+
+            {# BlaBlaCar #}
+            <h4>{{ 'sections.experience.blablacar.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.blablacar.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.blablacar.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.blablacar.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('blablacar.md', language)|raw }}
+
+            {# BlaBlaCar #}
+            <h4>{{ 'sections.experience.altran.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.altran.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.altran.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.altran.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('altran.md', language)|raw }}
+
+            {# Thales Alenia Space #}
+            <h4>{{ 'sections.experience.thales.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.thales.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.thales.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.thales.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('thales.md', language)|raw }}
+
+            {# Toutletoutim #}
+            <h4>{{ 'sections.experience.toutletoutim.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.toutletoutim.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.toutletoutim.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.toutletoutim.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('toutletoutim.md', language)|raw }}
+
+            {# Orange Labs #}
+            <h4>{{ 'sections.experience.orange.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.orange.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.orange.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.orange.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('orange.md', language)|raw }}
+
+        </div>
+        <div id="education">
+            <h3 class="section-title education-title">{{ 'sections.scholarship.title'|trans({}, 'resume', language) }}</h3>
+
+            {# CFA AFTI #}
+            <h4>{{ 'sections.scholarship.afti.title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.scholarship.afti.establishment'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.scholarship.afti.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.scholarship.afti.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('afti.md', language)|raw }}
+
+            {# Université de Caen #}
+            <h4>{{ 'sections.scholarship.unicaen.title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.scholarship.unicaen.establishment'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.scholarship.unicaen.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.scholarship.unicaen.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('unicaen.md', language)|raw }}
+
+        </div>
+        <div id="misc">
+            <h3 class="section-title misc-title">{{ 'sections.misc.title'|trans({}, 'resume', language) }}</h3>
+
+            {# Misc #}
+            {{ markdown('misc.md', language)|raw }}
+        </div>
+    </div>
+    <div id="skills-outter">
+        {{ block('skills') }}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/jquery-3.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/Wall.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var links = new Map();
+            links.set(-2, new Link("/{{ language }}.pdf", "pdf", "PDF", 3, -3));
+            {% if language == 'fr' %}
+                links.set(-1, new Link("{{ app.request.schemeAndHttpHost }}/en", "english", "Anglais", 4, -4));
+            {% else %}
+                links.set(-1, new Link("{{ app.request.schemeAndHttpHost }}/fr", "french", "Français", 4, -4));
+            {% endif %}
+            window.wall = new Wall($('#blocks'), links);
+        });
+
+        if ($(window).width() > 768) {
+            $(window).resize(function () {
+                window.wall.resize();
+            });
+        }
+    </script>
+{% endblock %}
+
+
