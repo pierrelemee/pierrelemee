@@ -39,7 +39,7 @@ sections:
         orange:
             job_title: "Développeur"
             company: "BlaBlaCar"
-            location: "Normandie"
+            location: "Caen"
             period: "2009"
     scholarship:
         title: "Scolarité"
