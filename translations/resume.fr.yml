@@ -1,3 +1,47 @@
+sections:
+    experience:
+        title: "Expérience pro"
+        bloomatwork:
+            job_title: "CTO"
+            company: "Bloom at Work"
+            location: "Paris"
+            period: "2018 - aujourd'hui"
+        billogram:
+            job_title: "Architecte"
+            company: "Billogram"
+            location: "Stockholm"
+            period: "2017"
+        senscritique:
+            job_title: "CTO"
+            company: "Sens Critique"
+            location: "Paris"
+            period: "Août 2016 - Janvier 2017"
+        blablacar:
+            job_title: "Développeur web & data"
+            company: "BlaBlaCar"
+            location: "Paris"
+            period: "Juillet 2014 - Juillet 2016"
+        altran:
+            job_title: "Ingénieur logiciel"
+            company: "Altran"
+            location: "Paris"
+            period: "Juillet 2013 - Juin 2014"
+        thales:
+            job_title: "Ingénieur Logiciel"
+            company: "Thales Alenia Space"
+            location: "Cannes"
+            period: "Avril 2011 - Mai 2013"
+        toutletoutim:
+            job_title: "Développeur web"
+            company: "Toutletoutim"
+            location: "Normandie"
+            period: "2009 - 2011"
+        orange:
+            job_title: "Développeur"
+            company: "BlaBlaCar"
+            location: "Normandie"
+            period: "2009"
+
 skills:
     backend:
         title: 'Backend'

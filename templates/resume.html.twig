@@ -99,34 +99,25 @@
             {% endblock %}
         </div>
         <div id="jobs">
-            <h3 class="section-title jobs-title">Expérience pro</h3>
+            <h3 class="section-title jobs-title">{{ 'sections.experience.title'|trans({}, 'resume', language) }}</h3>
 
-            <!-- Bloom at Work -->
-            <h4>CTO // <span class="soft-title">Bloom at Work</span></h4>
-            <h5>Paris // <span class="soft-title">january 2018 (current)</span></h5>
+            {# Bloom at Work #}
+            <h4>{{ 'sections.experience.bloomatwork.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.bloomatwork.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.bloomatwork.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.bloomatwork.period'|trans({}, 'resume', language) }}</span></h5>
 
-            <p>
-                J'ai rejoint <a href="https://www.bloom-at-work.com/">Bloom at Work</a>  pour prendre en main la partie technique
-                et contribuer à faire grandir la société.
-                La mission de Bloom at Work est de promouvoir le bien-être au travail en offrant
+            {{ markdown('bloomatwork.md', language)|raw }}
+
+            {# Billogram #}
+            <h4>{{ 'sections.experience.billogram.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.billogram.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.billogram.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.billogram.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('billogram.md', language)|raw }}
+
+            {# Sens Critique #}
+            <h4>{{ 'sections.experience.senscritique.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.senscritique.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.senscritique.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.senscritique.period'|trans({}, 'resume', language) }}</span></h5>
 
 
-                by offering a talking frame to a company's employees about their
-                well being at work, through playful but concrete quizes, and by rendering these statistics data to teamn and HR managers.</p>
-            <p>I hold the technical vision and undertake architectural decisions. All by assuming functions of front and back end developer,
-                data and system engineer, before soon federate a team around a technical project for which I'm the warrant.</p>
-            <p><strong>Stack tech:</strong> PHP, MySQL, Git, RabbitMQ, React, AWS</p>
-
-            <!-- Panda Creative / Billogram -->
-            <h4>Architecte // <span class="soft-title">Panda Creative / Billogram</span></h4>
-            <h5>Stockholm // <span class="soft-title">2017</span></h5>
-
-            <p></p>
-            <p><strong>Tech stack:</strong> PHP, MySQL, Git, Redis, Elasticsearch, RabbitMQ</p>
-
-            <!-- Sens Critique -->
-            <h4>CTO // <span class="soft-title">SensCritique</span></h4>
-            <h5>Paris // <span class="soft-title">august 2016 - january 2017</span></h5>
             <p>I had the privilege to be the CTO of <a href="http://www.senscritique.com/">SensCritique</a>, which is a website offering members to rate or review
                 films, TV shows, video games, books or even music albums, share suggestions among the community and create editorial content.</p>
             <p>My mission aims at organizing the development team, by:</p>
