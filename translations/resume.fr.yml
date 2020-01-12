@@ -41,6 +41,20 @@ sections:
             company: "BlaBlaCar"
             location: "Normandie"
             period: "2009"
+    scholarship:
+        title: "Scolarité"
+        afti:
+            title: "Software engineer MBA"
+            establishment: "CFA AFTI"
+            location: "Orsay"
+            period: "2013"
+        unicaen:
+            title: "Licence informatique"
+            establishment: "Université de Caen"
+            location: "Caen"
+            period: "2009"
+    misc:
+        title: "Divers"
 
 skills:
     backend:

@@ -7,4 +7,4 @@ J'ai rejoint cette jeune startup avant tout afin de ré-internaliser une solutio
 vite avec la responsabilité de porter la vision technique et assumer les décisions architecturales au sein d'une équipe qui 
 a grandit jusqu'à 4 personnes. Ceci tout en remplissant le rôle de lead développeur backend, data et sysadmin.  
 
-**Stack tech:** PHP, Symfony, MySQL, Git, RabbitMQ, React, Ansible, AWS
+**Stack technique:** PHP, Symfony, MySQL, Git, CircleCI, RabbitMQ, React, Ansible, AWS, Redis, Elasticsearch

@@ -1,0 +1,15 @@
+sections:
+    scholarship:
+        title: "Scolarité"
+        afti:
+            title: "Software engineer MBA"
+            establishment: "CFA AFTI"
+            location: "Orsay"
+            period: "2013"
+        unicaen:
+            title: "Bachelor's degree in CS"
+            establishment: "Caen University"
+            location: "Caen"
+            period: "2009"
+    misc:
+        title: "Miscellaneous"

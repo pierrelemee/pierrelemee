@@ -14,6 +14,9 @@
     "doctrine/lexer": {
         "version": "1.0.2"
     },
+    "erusev/parsedown": {
+        "version": "1.7.4"
+    },
     "erusev/parsedown-extra": {
         "version": "0.8.1"
     },

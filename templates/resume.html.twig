@@ -117,121 +117,60 @@
             <h4>{{ 'sections.experience.senscritique.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.senscritique.company'|trans({}, 'resume', language) }}</span></h4>
             <h5>{{ 'sections.experience.senscritique.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.senscritique.period'|trans({}, 'resume', language) }}</span></h5>
 
+            {{ markdown('senscritique.md', language)|raw }}
 
-            <p>I had the privilege to be the CTO of <a href="http://www.senscritique.com/">SensCritique</a>, which is a website offering members to rate or review
-                films, TV shows, video games, books or even music albums, share suggestions among the community and create editorial content.</p>
-            <p>My mission aims at organizing the development team, by:</p>
-            <ul>
-                <li>setting up an <em>Agile</em> methodology with <strong>Scrum</strong> </li>
-                <li>scheduling tasks and prioritizing projects, in interaction with market and product owners</li>
-                <li>adopt development standards peer review through pull requests or deployment procedures</li>
-                <li>handling technical partnerships with service providers by participating to meetings</li>
-                <li>creating a test environment (dedicated to missing unit tests when I joined the company) and a continuous integration
-                    process</li>
-            </ul>
-            <p><strong>Tech stack:</strong> PHP, MySQL, Git, Redis, Java, Elasticsearch, RabbitMQ, GraphQL, Ansible, Bash</p>
+            {# BlaBlaCar #}
+            <h4>{{ 'sections.experience.blablacar.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.blablacar.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.blablacar.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.blablacar.period'|trans({}, 'resume', language) }}</span></h5>
 
-            <!-- BlaBlaCar -->
-            <h4>Developer // <span class="soft-title">BlaBlaCar</span></h4>
-            <h5>Paris // <span class="soft-title">july 2014 - august 2016</span></h5>
-            <p>
-                Lead tech au sein de la BI team de Blablacar, le site de référence en matière de covoiturage.
+            {{ markdown('blablacar.md', language)|raw }}
 
-                Gestion d'un flux de collecte de données BI orientées actions utlisateur (PHP et Symfony 2, MySQL et Rabbit MQ)
-                Mise en place des outils de stockage et processing des données sur la base BI (Hadoop (HDFS, Pig script et Hive, synchronisation avec la base analytique HPE Vertica
-                Développement d'outils interne de migration de données (Java et Spring, RabbitMQ)
-                Mise en place d'un canal alternatif de collecte de données côté client (PHP, Javascript, NGinx,Java,Cassandra et
-            <ul>
-                <li>Gestion d'un flux de collecte de données BI orientées actions utlisateur (PHP et Symfony 2, MySQL et Rabbit MQ)</li>
-                <li>Mise en place des outils de stockage et processing des données sur la base BI (Hadoop (HDFS, Pig script et Hive, synchronisation avec la base analytique HPE Vertica</li>
-                <li>Développement d'outils interne de migration de données (Java et Spring, RabbitMQ)</li>
-                <li>Mise en place d'un canal alternatif de collecte de données côté client (PHP, Javascript, NGinx,Java,Cassandra et Hadoop)</li>
-            </ul>
-            <p>
-                <strong>Tech stack:</strong> PHP, Symfony, MySQL, Doctrine, Git, Redis, Elasticsearch, RabbitMQ, Hadoop (HDFS, Hive, Imapala, Pig-latin, Spark),
-                HPE Vertica, Kafka
-            </p>
+            {# BlaBlaCar #}
+            <h4>{{ 'sections.experience.altran.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.altran.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.altran.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.altran.period'|trans({}, 'resume', language) }}</span></h5>
 
-            <!-- Altran -->
-            <h4>Software engineer // <span class="soft-title">Altran</span></h4>
-            <h5>Sophia Antipolis // <span class="soft-title">july 2013 - june 2014</span></h5>
-            <p>I joined <strong>Altran</strong> as a consulting engineer as part of a service center team for <a href="https://www.gemalto.com/">Gemalto</a>,
-                world leader in digital security.
-                <br>
-                Technical assistance on a development project of a secured management platform dedicated to contactless payments.</p>
-            <ul>
-                <li>support on the development of the web administrator interface and the product's backend solution</li>
-                <li>redaction of the update and installation scripts (<em>Linux</em> system and network administration, setup  and integrations scripts)</li>
-                <li>creation of the software's monitoring services</li>
-                <li>intervention in the software configuration management and the system compilation and generation maintenance</li>
-            </ul>
-            <p><strong>Tech stack:</strong> JAVA, JSF, SOAP, JPA, Bash, Python, Weblogic, JMX, Groovy, Maven, SVN</p>
+            {{ markdown('altran.md', language)|raw }}
 
-            <!-- Thales Alenia Space -->
-            <h4>Software engineer // <span class="soft-title">Thales Alenia Space</span></h4>
-            <h5>Cannes // <span class="soft-title">april 2011 - may 2013</span></h5>
-            <p>I joined <a href="https://www.thalesgroup.com/fr/global-activities/espace">Thales Alenia Space</a>, the European leader in satellite
-                solutions, during my apprenticeship in software engineering.</p>
-            <p>As a member of the optical team, I developed and maintained a <em>Java</em> based simulation environment for high resolution
-                satellite images generation, and managed the evolution of the set of related software tools for simulation.</p>
-            <ul>
-                <li>participating in every step of the software's development life-cycle, from requirements gathering to end-user validation</li>
-                <li>being responsible for software configuration management and system settings</li>
-                <li>monitoring on-site intervention of subcontractors: assisting on information and data providing, organizing weekly
-                    meetings and reporting work progress</li>
-            </ul>
-            <p><strong>Tech stack:</strong> JAVA, Swing, Maven, JNI, C, Bash</p>
+            {# Thales Alenia Space #}
+            <h4>{{ 'sections.experience.thales.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.thales.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.thales.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.thales.period'|trans({}, 'resume', language) }}</span></h5>
 
-            <!-- Toutletoutim -->
-            <h4>Web developer // <span class="soft-title">Freelance</span></h4>
-            <h5>Saint Hilaire du Harcouët // <span class="soft-title">2009 - 2011</span></h5>
-            <p>After graduating university, I decided to become a freelance web developer to strengthen my web developemnt skills. I designed,
-                created, delivered and maintained websites for various organizations and customers (such as <a href="http://www.les-blotteries.com/">Les Blotteries</a>
-                or <a href="http://www.deco-styl.com/">Déco Styl</a>).</p>
-            <p>This introduced me to:</p>
-            <ul>
-                <li>customer relationship management, delivery meetings</li>
-                <li>developing and maintaining several websites with dedicated databases and rich Internet applications</li>
-                <li>legal, financial and administrative requirements</li>
-            </ul>
-            <p><strong>Tech stack:</strong> PHP, MySQL, CSS, Javascript, Actionscript, Gimp</p>
-            <h4>Developer // <span class="soft-title">Orange Labs</span></h4>
-            <h5>Caen // <span class="soft-title">2009</span></h5>
-            <p>For my first experience as a developer I had the chance to join the R&amp;D team of <a href="https://laborange.fr/">Orange Labs</a>. My
-                mission was to:</p>
-            <ul>
-                <li>setting up a gateway between the Livebox (internet connection box) and the Orange web radios catalog in <strong>Java</strong> relyong
-                    on the <strong>UPnP</strong> protocol </li>
-                <li>designed, developing and testing the media server providing web radios from the Orange web service to all connected devices,
-                    discovering web services (both <strong>REST</strong> and <strong>SOAP</strong>)</li>
-            </ul>
+            {{ markdown('thales.md', language)|raw }}
+
+            {# Toutletoutim #}
+            <h4>{{ 'sections.experience.toutletoutim.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.toutletoutim.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.toutletoutim.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.toutletoutim.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('toutletoutim.md', language)|raw }}
+
+            {# Orange Labs #}
+            <h4>{{ 'sections.experience.orange.job_title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.orange.company'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.experience.orange.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.experience.orange.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('orange.md', language)|raw }}
 
         </div>
         <div id="education">
-            <h3 class="section-title education-title">Education</h3>
-            <h4>Software engineer MBA // <span class="soft-title">CFA AFTI</span></h4>
-            <h5>Orsay // <span class="soft-title">2013</span></h5>
-            <p>I completed my training with this 2 year school cycle to improve my technical knowledge, work in the industry (I spent
-                half of the time at the office) and learn how to become an engineer.</p>
-            <p>Beside the technical things I've learnt, I mostly discovered how to gather the client's needs, write <strong>specifications</strong>,
-                <strong>organize development tasks</strong> or ensure product stability through <strong>unit testing</strong>. </p>
-            <h4>Licence Informatique // <span class="soft-title">Université de Caen</span></h4>
-            <h5>Caen // <span class="soft-title">2009</span></h5>
-            <p>I learned all the technical basics during this 3 year school cycle, this including:  </p>
-            <ul>
-                <li>programming languages: <strong>Python</strong>, <strong>JAVA</strong>, <strong>PHP</strong>, <strong>C</strong>, <strong>C++</strong>, <strong>Haskell</strong>, and others</li>
-                <li>scientific approaches: algorithms, algebra, physics, etc...</li>
-                <li>technical concepts: database, operating systems, network, language processing, geographical information systems</li>
-            </ul>
+            <h3 class="section-title education-title">{{ 'sections.scholarship.title'|trans({}, 'resume', language) }}</h3>
+
+            {# CFA AFTI #}
+            <h4>{{ 'sections.scholarship.afti.title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.scholarship.afti.establishment'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.scholarship.afti.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.scholarship.afti.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('afti.md', language)|raw }}
+
+            {# Université de Caen #}
+            <h4>{{ 'sections.scholarship.unicaen.title'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.scholarship.unicaen.establishment'|trans({}, 'resume', language) }}</span></h4>
+            <h5>{{ 'sections.scholarship.unicaen.location'|trans({}, 'resume', language) }} // <span class="soft-title">{{ 'sections.scholarship.unicaen.period'|trans({}, 'resume', language) }}</span></h5>
+
+            {{ markdown('unicaen.md', language)|raw }}
+
         </div>
         <div id="misc">
-            <h3 class="section-title misc-title">Miscellaneous</h3>
-            <p>Beside my maternal language, French obviously, I speak a <strong>fluent English</strong>, I could attend a conversation in <strong>Spanish</strong>
-                and I have basics in <strong>Italian</strong>. On my spare time I enjoy watching films and TV shows. Whenever I can I listen to music
-                (mostly electronic, ambient, rock and jazz). I am a <strong>golf</strong> addict, but I also sometimes play <strong>tennis</strong> or <strong>jog</strong> if
-                I'm not too lazy. I like to taste a good <strong>wine</strong>, <strong>beer</strong> or <strong>whisky</strong>, or play <em>mots fléchés</em> (french equivalent of
-                crossword puzzles) while drinking my morning coffee.</p>
-            <p>I currently live in the 10th district of Paris.</p>
+            <h3 class="section-title misc-title">{{ 'sections.misc.title'|trans({}, 'resume', language) }}</h3>
+
+            {# Misc #}
+            {{ markdown('misc.md', language)|raw }}
         </div>
     </div>
     <div id="skills-outter">
@@ -246,8 +185,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var links = new Map();
-            links.set(-2, new Link("/pdf/en.pdf", "pdf", "PDF", 3, -3));
-            links.set(-1, new Link("https://www.pierrelemee.fr/fr", "french", "Français", 4, -4));
+            links.set(-2, new Link("/{{ language }}.pdf", "pdf", "PDF", 3, -3));
+            {% if language == 'fr' %}
+                links.set(-1, new Link("{{ app.request.schemeAndHttpHost }}/en", "english", "Anglais", 4, -4));
+            {% else %}
+                links.set(-1, new Link("{{ app.request.schemeAndHttpHost }}/fr", "french", "Français", 4, -4));
+            {% endif %}
             window.wall = new Wall($('#blocks'), links);
         });
 
