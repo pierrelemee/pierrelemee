@@ -40,7 +40,7 @@ class MainController extends AbstractController
         return $this->render('resume.html.twig', [
             'language' => 'fr',
             'age' => ($age = $this->howOldAmI()),
-            'title' => "Pierre LEMÉE - Ingénieur logiciel - $age"
+            'title' => "Pierre LEMÉE - Ingénieur logiciel en développement web basé à Paris - $age ans"
         ]);
     }
 
@@ -54,7 +54,7 @@ class MainController extends AbstractController
         return $this->render('resume.html.twig', [
             'language' => 'en',
             'age' => ($age = $this->howOldAmI()),
-            'title' => "Pierre LEMÉE - Software engineer - $age"
+            'title' => "Pierre LEMÉE - Software engineer in web development based in Paris- $age years old"
         ]);
     }
 
