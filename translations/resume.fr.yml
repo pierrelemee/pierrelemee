@@ -1,3 +1,13 @@
+meta:
+    description: "Site personnel de Pierre Lemée, CTO, ingénieur logiciel et développeur de :age ans vivant à Paris, 11 ans d'expérience dans le développement Web, en startup et dans l'industrie"
+    keywords: "Pierre Lemée, CTO, ingénieur logiciel, développeur, web, PHP, startup, Symfony, Java, Python, devops"
+
+intro:
+    details:
+        title: "Ingénieur logiciel"
+        gender: "Homme"
+        nationality: "Français"
+
 sections:
     experience:
         title: "Expérience pro"

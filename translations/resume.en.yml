@@ -1,3 +1,13 @@
+meta:
+    description: "Personal website of Pierre Lemée, CTO, software engineer and developer, aged :age ans and living in Paris, 11 years of professional experience in web development, in startup and in the industry"
+    keywords: "Pierre Lemée, CTO, softare engineer, developer, web, PHP, startup, Symfony, Java, Python, devops"
+
+intro:
+    details:
+        title: "Software engineer"
+        gender: "Male"
+        nationality: "French"
+
 sections:
     experience:
         title: "Professional experience"

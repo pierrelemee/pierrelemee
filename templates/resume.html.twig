@@ -1,5 +1,12 @@
 {% extends '_base.html.twig' %}
 
+{% block meta %}
+    <meta name="author" content="Pierre LEMÉE">
+    <meta name="description" content="{{ 'meta.description'|trans({':age': age}, 'resume', language) }}"/>
+    <meta name="keywords" content=""/>
+    <meta name="robots" content="index">
+{% endblock%}
+
 {% block stylesheets %}
     <link rel="stylesheet" media="print" type="text/css" title="style" href="{{ asset('css/print.css') }}">
     <link rel="stylesheet" media="screen and (max-width: 768px)" type="text/css" title="style" href="{{ asset('css/mobile.css')}}">
@@ -21,10 +28,10 @@
     <div id="content">
         <div id="header">
             <div id="name">
-                <h1>Pierre LEMÉE // <span class="soft-title">Ingénieur logiciel</span></h1>
+                <h1>Pierre LEMÉE // <span class="soft-title">{{ 'intro.details.title'|trans({}, 'resume', language) }}</span></h1>
             </div>
             <div id="job">
-                <h3>Homme // <span class="soft-title">33</span> // <span class="soft-title">Français</span></h3>
+                <h3>{{ 'intro.details.gender'|trans({}, 'resume', language) }} // <span class="soft-title">{{ age }}</span> // <span class="soft-title">{{ 'intro.details.nationality'|trans({}, 'resume', language) }}</span></h3>
             </div>                </div>
         <div id="social">
             <a href="https://www.github.com/pierrelemee" title="Mon profil Github" class="github" target="_blank"></a>

@@ -6,9 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use DateTimeImmutable;
+use Exception;
 
 class MainController extends AbstractController
 {
+    const DATETIME_FORMAT = 'Y-m-d';
+    const FALLBACK_AGE = 25;
+
     /**
      * @Route("", name="main_index")
      *
@@ -34,7 +39,8 @@ class MainController extends AbstractController
     {
         return $this->render('resume.html.twig', [
             'language' => 'fr',
-            'title' => "Pierre LEMÉE - Ingénieur logiciel - 33"
+            'age' => ($age = $this->howOldAmI()),
+            'title' => "Pierre LEMÉE - Ingénieur logiciel - $age"
         ]);
     }
 
@@ -47,8 +53,21 @@ class MainController extends AbstractController
     {
         return $this->render('resume.html.twig', [
             'language' => 'en',
-            'title' => "Pierre LEMÉE - Software engineer - 33"
+            'age' => ($age = $this->howOldAmI()),
+            'title' => "Pierre LEMÉE - Software engineer - $age"
         ]);
+    }
+
+    /**
+     * @return int
+     */
+    protected function howOldAmI(): int
+    {
+        try {
+            return DateTimeImmutable::createFromFormat(self::DATETIME_FORMAT, $this->getParameter('dob'))->diff(new DateTimeImmutable())->y;
+        } catch (Exception $e) {
+            return self::FALLBACK_AGE;
+        }
     }
 
     /**
