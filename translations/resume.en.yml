@@ -48,7 +48,7 @@ sections:
             period: "2009 - 2011"
         orange:
             job_title: "Developer"
-            company: "BlaBlaCar"
+            company: "Orange Labs"
             location: "Caen"
             period: "2009"
     scholarship:
