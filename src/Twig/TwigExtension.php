@@ -2,7 +2,7 @@
 
 namespace PierreLemee\Twig;
 
-use Twig\Extension\AbstractExtension;
+use Twig\Extension\AbstractExtension    ;
 use Twig\TwigFilter;
 use ParsedownExtra;
 use Twig\TwigFunction;
