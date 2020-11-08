@@ -35,8 +35,14 @@
           file: 'github.pub'
           user: 'pitou'
     static:
-      shared:
+      pierrelemee:
         source: 'pierrelemee'
+        destination: '/var/shared'
+        user: 'pitou'
+        group: 'pitou'
+        mode: 644
+      decostyl:
+        source: 'decostyl'
         destination: '/var/shared'
         user: 'pitou'
         group: 'pitou'
@@ -55,5 +61,10 @@
         pierrelemee:
           domain: 'pierrelemee.fr'
           root_dir: '/var/www/pierrelemee/current/public'
-          template: 'vhost-sf4.conf.j2'
+          template: 'site-symfony4.j2'
+          www_redirect: true
+        decostyl:
+          domain: 'deco-styl.com'
+          root_dir: '/var/www/decostyl/current/public'
+          template: 'site-symfony4.j2'
           www_redirect: true
