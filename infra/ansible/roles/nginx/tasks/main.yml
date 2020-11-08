@@ -1,0 +1,60 @@
+---
+- name: APT Update
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+    cache_valid_time: 3600
+
+- name: install
+  apt:
+    name: nginx
+    state: latest
+  notify:
+    - start nginx
+
+- name: Ensures include dir exists
+  file:
+    path: /etc/nginx/include
+    state: directory
+
+- name: copy basic config
+  copy:
+    src: files/general.conf
+    dest: /etc/nginx/include/general.conf
+    mode: 0644
+
+- name: remove default configuration file
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify:
+    - reload nginx
+
+- name: create sites access log dirs
+  file:
+    path: "{{ item.log_dir }}"
+    state: directory
+  loop: "{{ nginx_sites|default([]) }}"
+  when:
+    - item.log_dir is defined
+
+- name: add site
+  template:
+    src: "{{ item.template }}"
+    dest: /etc/nginx/sites-available/{{ item.domain }}.conf
+  loop: "{{ nginx.sites|default([]) }}"
+  when:
+    - item|lower != 'none'
+  notify:
+    - reload nginx
+
+- name: symlink site
+  file:
+    path: /etc/nginx/sites-enabled/{{ item.domain }}.conf
+    src: /etc/nginx/sites-available/{{ item.domain }}.conf
+    state: link
+  loop: "{{ nginx.sites|default([]) }}"
+  when:
+    - item|lower != 'none'
+  notify:
+    - reload nginx

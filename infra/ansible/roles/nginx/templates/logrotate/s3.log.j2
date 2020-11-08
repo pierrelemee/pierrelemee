@@ -1,0 +1,27 @@
+{{ item.log_dir|default('/var/log/nginx' ~ item.domain ~ '_') }}/access.log{% if item.compress_logs|default(false) %}.gz{% endif %} {
+    #rotate the logfile(s) daily
+    daily
+    # If log file is missing, go on to next one without issuing an error msg
+    missingok
+    # Save logfiles for the last 10 days
+    rotate 3
+    # Old versions of log files are compressed with gzip
+    compress
+    # Postpone compression of the previous log file to the next rotation cycle
+    delaycompress
+    # Do not rotate the log if it is empty
+    notifempty
+    #after logfile is rotated and nginx.pid exists, send the USR1 signal
+    postrotate
+        day=`date -d "yesterday" '+%d'`
+        month=`date -d "yesterday" '+%m'`
+        year=`date -d "yesterday" '+%Y'`
+        file="${day}-`hostname`.log.gz"
+        gzip -c {{ item.log_dir|default('/var/log/nginx' ~ item.domain ~ '_') }}/access.log{% if item.compress_logs|default(false) %}.gz{% endif %}.1 > "/tmp/${file}"
+        chown eggy:eggy "/tmp/${file}"
+        echo "s3://{{ item.s3_bucket }}{{ item.s3_prefix|default('') }}/${year}/${month}/${file}"
+        sudo -u eggy aws s3 cp "/tmp/${file}" "s3://{{ item.s3_bucket }}{{ item.s3_prefix|default('') }}/${year}/${month}/${file}"
+        sudo -u eggy rm -f "/tmp/${file}"
+        [ ! -f /var/run/nginx.pid  ] || kill -USR1 `cat /var/run/nginx.pid`
+    endscript
+}

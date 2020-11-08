@@ -1,0 +1,29 @@
+---
+- name: Copy static files and directories
+  user:
+    name: "{{ item.name }}"
+    groups: www-data
+    append: yes
+    state: present
+    shell: /bin/bash
+    skeleton: /etc/skel
+    home: "/home/{{ item.name }}"
+    generate_ssh_key: no
+  loop: "{{ user.users|default([]) }}"
+
+- name: Replace bashrc for root
+  template:
+    src: bashrc_root.j2
+    dest: /root/.bashrc
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Replace bashrc for users
+  template:
+    src: bashrc.j2
+    dest: "/home/{{ item.name }}/.bashrc"
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0644
+  loop: "{{ user.users|default([]) }}"

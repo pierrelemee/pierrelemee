@@ -1,0 +1,17 @@
+---
+- name: add sury key
+  apt_key:
+    url: https://packages.sury.org/php/apt.gpg
+    keyring: /etc/apt/trusted.gpg.d/php.gpg
+    state: present
+
+- name: add sury repository
+  apt_repository:
+    repo: deb https://packages.sury.org/php/ buster main
+    filename: php
+    state: present
+
+- name: install 7.4
+  apt:
+    name: "{{ php_packages }}"
+    state: latest

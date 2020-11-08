@@ -1,0 +1,18 @@
+---
+- name: install Python passlib
+  pip:
+    name: passlib
+
+- name: Create Basic Auth password files
+  htpasswd:
+    path: '{{ item.file }}'
+    name: '{{ item.username }}'
+    password: '{{ item.password }}'
+    owner: www-data
+    group: www-data
+    mode: 0644
+  loop: "{{ htpassword }}"
+  when:
+    - item|lower != 'none'
+  notify:
+    - reload nginx

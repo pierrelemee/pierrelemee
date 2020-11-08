@@ -1,0 +1,57 @@
+---
+- name: install generic tools
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+      - python-apt
+      - python3-pip
+      - apt-transport-https
+      - ca-certificates
+      - vim
+      - curl
+      - htop
+      - unzip
+      - rsync
+      - acl
+
+
+- name: Ensure a locale exists
+  locale_gen:
+    name: fr_FR.UTF-8
+    state: present
+
+- name: Set timezone
+  timezone:
+    name: Europe/Paris
+
+- name: set etc hostname
+  copy:
+    content: "{{ system.os.hostname }}"
+    dest: /etc/hostname
+    mode: 0644
+    owner: root
+    group: root
+  when: utils.os.hostname is defined
+
+- name: set etc hosts name
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '^127.0.0.1 (.*)'
+    line: '127.0.0.1 {{ system.os.hostname }} \1'
+    backrefs: yes
+  when: utils.os.hostname is defined
+
+- name: set cli host name
+  command: hostname "{{ system.os.hostname }}"
+  when: utils.os.hostname is defined
+
+- name: Config fail2ban
+  template:
+    src: fail2ban.conf.j2
+    dest: /etc/fail2ban/jail.d/global.conf
+    mode: 0644
+  notify:
+    - restart fail2ban
+

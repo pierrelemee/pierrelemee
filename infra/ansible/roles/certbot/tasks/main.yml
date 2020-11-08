@@ -1,0 +1,62 @@
+---
+- name: install certbot
+  pip:
+    name:
+      - certbot
+      - certbot-dns-ovh
+      - cryptography
+    state: latest
+
+- name: copy logrotate conf
+  copy:
+    src: files/logrotate
+    dest: /etc/logrotate.d/certbot
+    mode: 0644
+    owner: root
+    group: root
+
+- name: copy cron renew
+  copy:
+    src: files/cron
+    dest: /etc/cron.d/certbot
+    mode: 0644
+    owner: root
+    group: root
+
+- name: Check if OVH config is installed.
+  stat:
+    path: '/root/.ovh-credentials.ini.j2'
+  register: ovh_config_installed
+
+- name: add OVH credentials file
+  template:
+    src: ovh-credentials.ini.j2
+    dest: /root/.ovh-credentials.ini
+    mode: 0600
+    owner: root
+    group: root
+  when: ovh_config_installed.stat.exists == false
+
+- name: check if SSL certificates already exist
+  stat:
+    path: '/etc/letsencrypt/live/{{ item.domain }}'
+  register: ssl_facts
+  loop: "{{ nginx.sites|default([]) }}"
+  when:
+    - item|lower != 'none'
+
+#- name: debug
+#  debug:
+#    var: ssl_facts.results
+
+- name: generate SSL certificates
+  command: |
+    /usr/local/bin/certbot certonly --dns-ovh-propagation-seconds 60 --dns-ovh --dns-ovh-credentials /root/.ovh-credentials.ini
+    --non-interactive --agree-tos --email pierre@pierrelemee.fr --server https://acme-v02.api.letsencrypt.org/directory
+    --expand -d "*.{{ item.item.domain }}" -d {{ item.item.domain }}
+  loop: "{{ ssl_facts.results }}" # we have to use the var previously registered
+  when:
+  - item|lower != 'none'
+  - item.stat.exists != true
+  notify:
+    - reload nginx

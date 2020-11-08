@@ -1,0 +1,51 @@
+- hosts: pierrelemee
+  remote_user: root
+  roles:
+    - {role: system, tags: 'system'}
+    - {role: user, tags: 'user'}
+    - {role: ssh, tags: 'ssh'}
+    - {role: fail2ban, tags: 'fail2ban'}
+    - {role: htpasswd, tags: 'htpasswd'}
+    - {role: static, tags: 'static'}
+    - {role: php74, tags: 'php'}
+    #- {role: transmission, tags: 'transmission'}
+    - {role: certbot, tags: 'certbot'}
+    - {role: nginx, tags: 'nginx'}
+  vars_files:
+    - vars/ovh.yml
+  vars:
+    system:
+      os:
+        hostname: 'pitou-server'
+    static:
+      shared:
+        source: 'pierrelemee'
+        destination: '/var/shared'
+        user: 'pitou'
+        group: 'pitou'
+        mode: 644
+    user:
+      users:
+        - user:
+          name: 'pitou'
+    htpassword:
+      - user:
+        file: '/etc/nginx/pierrelemee.htpasswd'
+        username: 'pitou'
+        password: 'rdhead'
+      - user:
+        file: '/etc/nginx/pierrelemee.htpasswd'
+        username: 'lea'
+        password: '110590'
+    nginx:
+      sites:
+        - pierrelemee:
+          domain: pierrelemee.fr
+          root_dir: '/var/www/pierrelemee/current/public'
+          template: 'vhost-sf4.conf.j2'
+          www_redirect: true
+    ssh:
+      users:
+        root@github:
+          key: github.pub
+          user: root
