@@ -48,14 +48,19 @@ else
       done
     done
     # Install PHP dependencies w/ composer
-    composer --no-cache --no-interaction --no-dev install
-    rm -Rf "${TEMP_DIR:?}/var"
+    for host in $(echo "${HOSTS}" | tr ";" "\n"); do
+      echo "Install PHP dependencies w/ composer"
+      ssh "${host}" "cd /var/www/pierrelemee/${VERSION} && composer --no-progress --no-cache --no-interaction --no-dev install"
+    done
     # Update symlinks
     for host in $(echo "${HOSTS}" | tr ";" "\n"); do
+      echo "Update symlinks"
       ssh "${host}" "ln -snf /var/www/pierrelemee/${VERSION} /var/www/pierrelemee/current"
     done
+    # Reload nginx
     for host in $(echo "${HOSTS}" | tr ";" "\n"); do
-      ssh "${host}" 'systemctl reload nginx.service'
+      echo "Reload nginx"
+      ssh "${host}" 'sudo systemctl reload nginx.service'
     done
     # Remove older builds
     for host in $(echo "${HOSTS}" | tr ";" "\n"); do

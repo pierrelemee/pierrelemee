@@ -1,5 +1,10 @@
 ---
-- name: install generic tools
+- name: APT Update
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+
+- name: Install generic tools
   apt:
     name: "{{ packages }}"
     state: latest
@@ -26,32 +31,24 @@
   timezone:
     name: Europe/Paris
 
-- name: set etc hostname
+- name: Set etc hostname
   copy:
     content: "{{ system.os.hostname }}"
     dest: /etc/hostname
     mode: 0644
     owner: root
     group: root
-  when: utils.os.hostname is defined
+  when: system.os.hostname is defined
 
-- name: set etc hosts name
+- name: Set etc hosts name
   lineinfile:
     dest: /etc/hosts
     regexp: '^127.0.0.1 (.*)'
     line: '127.0.0.1 {{ system.os.hostname }} \1'
     backrefs: yes
-  when: utils.os.hostname is defined
+  when: system.os.hostname is defined
 
-- name: set cli host name
+- name: Set cli host name
   command: hostname "{{ system.os.hostname }}"
-  when: utils.os.hostname is defined
-
-- name: Config fail2ban
-  template:
-    src: fail2ban.conf.j2
-    dest: /etc/fail2ban/jail.d/global.conf
-    mode: 0644
-  notify:
-    - restart fail2ban
+  when: system.os.hostname is defined
 

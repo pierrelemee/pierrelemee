@@ -5,14 +5,12 @@
 
 - name: Create Basic Auth password files
   htpasswd:
-    path: '{{ item.file }}'
-    name: '{{ item.username }}'
-    password: '{{ item.password }}'
+    path: '{{ item.value.file }}'
+    name: '{{ item.value.username }}'
+    password: '{{ item.value.password }}'
     owner: www-data
     group: www-data
     mode: 0644
-  loop: "{{ htpassword }}"
+  with_dict: "{{ htpassword|default({}) }}"
   when:
     - item|lower != 'none'
-  notify:
-    - reload nginx

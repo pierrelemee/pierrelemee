@@ -1,15 +1,23 @@
 ---
-- name: Copy static files and directories
+- name: Create unix groups
+  group:
+    name: "{{ item.1 }}"
+    state: present
+  with_subelements:
+    - "{{ user.users|default({}) }}"
+    - 'groups'
+
+- name: Create unix users
   user:
-    name: "{{ item.name }}"
-    groups: www-data
+    name: "{{ item.value.name }}"
+    groups: "{{ item.value.groups|default([item.value.name]) }}"
     append: yes
     state: present
     shell: /bin/bash
     skeleton: /etc/skel
-    home: "/home/{{ item.name }}"
+    home: "/home/{{ item.value.name }}"
     generate_ssh_key: no
-  loop: "{{ user.users|default([]) }}"
+  with_dict: "{{ user.users|default({}) }}"
 
 - name: Replace bashrc for root
   template:
@@ -22,8 +30,21 @@
 - name: Replace bashrc for users
   template:
     src: bashrc.j2
-    dest: "/home/{{ item.name }}/.bashrc"
-    owner: "{{ item.name }}"
-    group: "{{ item.name }}"
+    dest: "/home/{{ item.value.name }}/.bashrc"
+    owner: "{{ item.value.name }}"
+    group: "{{ item.value.name }}"
     mode: 0644
-  loop: "{{ user.users|default([]) }}"
+  with_dict: "{{ user.users|default({}) }}"
+
+
+- name: Copy sudo rules
+  template:
+    src: "files/{{ item.1 }}"
+    dest: /etc/sudoers.d/{{ item.1 }}
+    owner: root
+    group: root
+    mode: 0400
+  with_subelements:
+    - "{{ user.users }}"
+    - 'sudo'
+    - skip_missing: true

@@ -1,9 +1,13 @@
 ---
 
-# Relying on looping over hashes https://docs.ansible.com/ansible/2.4/playbooks_loops.html#looping-over-hashes
-- name: add authorized keys
+- name: Debug
+  debug:
+    msg: "{{ item }}"
+  with_dict: "{{ ssh.authorized_keys|default({}) }}"
+
+- name: Add authorized keys
   authorized_key:
     user: "{{ item.value.user }}"
     state: present
-    key: "{{ lookup('file', item.value.key) }}"
-  with_dict: "{{ ssh.users }}"
+    key: "{{ lookup('file', 'files/{{ item.value.file }}') }}"
+  with_dict: "{{ ssh.authorized_keys|default({}) }}"

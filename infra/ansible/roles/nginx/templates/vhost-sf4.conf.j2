@@ -8,26 +8,26 @@ server {
 	listen [::]:443 ssl http2;
 
 	# SSL
-	ssl_certificate /etc/letsencrypt/live/{{ item.domain }}/fullchain.pem;
-	ssl_certificate_key /etc/letsencrypt/live/{{ item.domain }}/privkey.pem;
-	ssl_trusted_certificate /etc/letsencrypt/live/{{ item.domain }}/fullchain.pem;
+	ssl_certificate /etc/letsencrypt/live/{{ item.value.domain }}/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/{{ item.value.domain }}/privkey.pem;
+	ssl_trusted_certificate /etc/letsencrypt/live/{{ item.value.domain }}/fullchain.pem;
 
-	server_name {{ item.domain }};
+	server_name {{ item.value.domain }};
 
-	root {{ item.root_dir }};
+	root {{ item.value.root_dir }};
 
-	{% if item.enable_logs|default(true) %}
-		error_log /var/log/nginx/{{ item.domain }}_error.log;
-		access_log /var/log/nginx/{{ item.domain }}_access.log;
+	{% if item.value.enable_logs|default(true) %}
+		error_log /var/log/nginx/{{ item.value.domain }}_error.log;
+		access_log /var/log/nginx/{{ item.value.domain }}_access.log;
 	{% else %}
 		error_log off;
 		access_log off;
 	{% endif %}
 
 	location / {
-	    {% if item.htpasswd is defined %}
-        	auth_basic "{{ item.auth_message|default('Zone réservée') }}";
-        	auth_basic_user_file {{ item.htpasswd }};
+	    {% if item.value.htpasswd is defined %}
+        	auth_basic "{{ item.value.auth_message|default('Zone réservée') }}";
+        	auth_basic_user_file {{ item.value.htpasswd }};
         {% else %}
             auth_basic off;
         {% endif %}
@@ -47,8 +47,8 @@ server {
 
 	# PROD
 	location ~ ^/index\.php(/|$) {
-		{% if item.headers is defined %}
-			{% for header in item.headers %}
+		{% if item.value.headers is defined %}
+			{% for header in item.value.headers %}
 			add_header '{{ header.name }}' '{{ header.value }}' always;
 			{% endfor %}
 		{% endif %}
@@ -57,8 +57,8 @@ server {
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 		include fastcgi_params;
 
-		{% if item.cgi_params is defined %}
-			{% for param in item.cgi_params %}
+		{% if item.value.cgi_params is defined %}
+			{% for param in item.value.cgi_params %}
 				fastcgi_param {{ param.name }} {{ param.value }};
 			{% endfor %}
 		{% endif %}
@@ -79,26 +79,26 @@ server {
 	listen 80;
 	listen [::]:80;
 
-	server_name {{ item.domain }};
+	server_name {{ item.value.domain }};
 
 	location / {
-		{% if item.www_redirect|default(true) %}
-		return 301 https://www.{{ item.domain }}$request_uri;
+		{% if item.value.www_redirect|default(true) %}
+		return 301 https://www.{{ item.value.domain }}$request_uri;
 		{% else %}
-		return 301 https://{{ item.domain }}$request_uri;
+		return 301 https://{{ item.value.domain }}$request_uri;
 		{% endif %}
 	}
 }
 
-{% if item.www_redirect|default(false) %}
+{% if item.value.www_redirect|default(false) %}
 server {
 	listen 443 ssl;
 	listen [::]:443 ssl;
 
-	server_name {{ item.domain }};
+	server_name {{ item.value.domain }};
 
 	location / {
-		return 301 https://www.{{ item.domain }}$request_uri;
+		return 301 https://www.{{ item.value.domain }}$request_uri;
 	}
 }
 {% endif %}

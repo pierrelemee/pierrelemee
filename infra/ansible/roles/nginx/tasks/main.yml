@@ -1,11 +1,5 @@
 ---
-- name: APT Update
-  apt:
-    update_cache: yes
-    force_apt_get: yes
-    cache_valid_time: 3600
-
-- name: install
+- name: Install Nginx pakacge
   apt:
     name: nginx
     state: latest
@@ -30,31 +24,35 @@
   notify:
     - reload nginx
 
+- name: Transfer access of www dir to Nginx user
+  file:
+    path: /var/www
+    owner: www-data
+    group: www-data
+    mode: 0775
+    recurse: yes
+
 - name: create sites access log dirs
   file:
-    path: "{{ item.log_dir }}"
+    path: "{{ item.value.log_dir }}"
     state: directory
-  loop: "{{ nginx_sites|default([]) }}"
+  with_dict: "{{ nginx.sites|default({}) }}"
   when:
-    - item.log_dir is defined
+    - item.value.log_dir is defined
 
 - name: add site
   template:
-    src: "{{ item.template }}"
-    dest: /etc/nginx/sites-available/{{ item.domain }}.conf
-  loop: "{{ nginx.sites|default([]) }}"
-  when:
-    - item|lower != 'none'
+    src: "{{ item.value.template }}"
+    dest: "/etc/nginx/sites-available/{{ item.value.domain }}.conf"
+  with_dict: "{{ nginx.sites|default({}) }}"
   notify:
     - reload nginx
 
 - name: symlink site
   file:
-    path: /etc/nginx/sites-enabled/{{ item.domain }}.conf
-    src: /etc/nginx/sites-available/{{ item.domain }}.conf
+    path: "/etc/nginx/sites-enabled/{{ item.value.domain }}.conf"
+    src: "/etc/nginx/sites-available/{{ item.value.domain }}.conf"
     state: link
-  loop: "{{ nginx.sites|default([]) }}"
-  when:
-    - item|lower != 'none'
+  with_dict: "{{ nginx.sites|default({}) }}"
   notify:
     - reload nginx
