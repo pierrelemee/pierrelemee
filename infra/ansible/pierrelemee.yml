@@ -8,7 +8,7 @@
     - {role: fail2ban, tags: 'fail2ban'}
     - {role: htpasswd, tags: 'htpasswd'}
     - {role: php74, tags: 'php'}
-    #- {role: transmission, tags: 'transmission'}
+    - {role: transmission, tags: 'transmission'}
     - {role: certbot, tags: 'certbot'}
     - {role: nginx, tags: 'nginx'}
   vars_files:
@@ -68,3 +68,19 @@
           root_dir: '/var/www/decostyl/current/public'
           template: 'site-symfony4.j2'
           www_redirect: true
+        private:
+          domain: 'private.pierrelemee.fr'
+          ssl_domain: 'pierrelemee.fr'
+          # To add new disks https://www.scaleway.com/en/docs/how-to-mount-and-format-a-block-volume/
+          root_dir: '/media/data/transmission/downloads'
+          template: 'site-static.j2'
+          www_redirect: false
+          htpasswd: '/etc/nginx/pierrelemee.htpasswd'
+        torrent:
+          domain: 'torrent.pierrelemee.fr'
+          ssl_domain: 'pierrelemee.fr'
+          proxy_url: 'http://127.0.0.1:9091'
+          template: 'site-proxy.j2'
+          www_redirect: false
+          htpasswd: '/etc/nginx/pierrelemee.htpasswd'
+

@@ -39,20 +39,15 @@
 
 - name: check if SSL certificates already exist
   stat:
-    path: '/etc/letsencrypt/live/{{ item.value.domain }}'
+    path: '/etc/letsencrypt/live/{{ item.value.ssl_domain|default(item.value.domain) }}'
   register: ssl_facts
   with_dict: "{{ nginx.sites|default({}) }}"
-
-- name: Print results
-  debug:
-    msg: '{{ item.item }}'
-  with_items: "{{ ssl_facts.results }}"
 
 - name: generate SSL certificates
   command: |
     /usr/local/bin/certbot certonly --dns-ovh-propagation-seconds 60 --dns-ovh --dns-ovh-credentials /root/.ovh-credentials.ini
     --non-interactive --agree-tos --email pierre@pierrelemee.fr --server https://acme-v02.api.letsencrypt.org/directory
-    --expand -d "*.{{ item.item.value.domain }}" -d {{ item.item.value.domain }}
+    --expand -d "*.{{ item.item.value.ssl_domain|default(item.item.value.domain) }}" -d {{ item.item.value.ssl_domain|default(item.item.value.domain) }}
   with_items: "{{ ssl_facts.results }}"
   when:
     - item.stat.exists == False

@@ -1,0 +1,46 @@
+---
+
+- name: Install transmission
+  apt:
+    name: transmission-daemon
+    state: latest
+
+- name: Ensures dowload directories exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: debian-transmission
+    group: debian-transmission
+    mode: '0777'
+    recurse: 'yes'
+  with_items:
+    - '/media/data/transmission/downloads'
+    - '/media/data/transmission/temp'
+
+- name: restart transmission
+  service:
+      name: transmission-daemon
+      state: stopped
+
+- name: Modify transmission download dir
+  lineinfile:
+     path: '/etc/transmission-daemon/settings.json'
+     regexp: '\"download-dir\"'
+     line: '"download-dir": "/media/data/transmission/downloads",'
+
+- name: Modify transmission temp dir
+  lineinfile:
+      path: '/etc/transmission-daemon/settings.json'
+      regexp: '\"incomplete-dir\"'
+      line: '"incomplete-dir": "/media/data/transmission/temp",'
+
+- name: Modify RPC authentication
+  lineinfile:
+      path: '/etc/transmission-daemon/settings.json'
+      regexp: '\"rpc-authentication-required\"'
+      line: '"rpc-authentication-required": false,'
+
+- name: restart transmission
+  service:
+      name: transmission-daemon
+      state: started

@@ -1,5 +1,5 @@
 ---
-- name: Install Nginx pakacge
+- name: Install Nginx package
   apt:
     name: nginx
     state: latest
@@ -11,13 +11,13 @@
     path: /etc/nginx/include
     state: directory
 
-- name: copy basic config
+- name: Copy basic config
   copy:
     src: files/general.conf
     dest: /etc/nginx/include/general.conf
     mode: 0644
 
-- name: remove default configuration file
+- name: Remove default configuration file
   file:
     path: /etc/nginx/sites-enabled/default
     state: absent
@@ -32,15 +32,13 @@
     mode: 0775
     recurse: yes
 
-- name: create sites access log dirs
+- name: Create sites access log dirs
   file:
-    path: "{{ item.value.log_dir }}"
+    path: "{{ item.value.log_dir|default('/var/log/nginx/' ~ item.value.domain) }}"
     state: directory
   with_dict: "{{ nginx.sites|default({}) }}"
-  when:
-    - item.value.log_dir is defined
 
-- name: add site
+- name: Add sites
   template:
     src: "{{ item.value.template }}"
     dest: "/etc/nginx/sites-available/{{ item.value.domain }}.conf"
@@ -48,7 +46,7 @@
   notify:
     - reload nginx
 
-- name: symlink site
+- name: Symlink sites
   file:
     path: "/etc/nginx/sites-enabled/{{ item.value.domain }}.conf"
     src: "/etc/nginx/sites-available/{{ item.value.domain }}.conf"
