@@ -1,0 +1,4 @@
+# User rules for {{ item.0.name }}
+{{ item.0.name }} ALL=(ALL:ALL) ALL
+{{ item.0.name }} ALL=NOPASSWD:/bin/systemctl reload nginx.service
+{{ item.0.name }} ALL=NOPASSWD:/bin/systemctl reload php7.4-fpm.service

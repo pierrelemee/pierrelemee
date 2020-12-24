@@ -1,0 +1,86 @@
+- hosts: pierrelemee
+  remote_user: root
+  roles:
+    - {role: system, tags: 'system'}
+    - {role: user, tags: 'user'}
+    - {role: ssh, tags: 'ssh'}
+    - {role: static, tags: 'static'}
+    - {role: fail2ban, tags: 'fail2ban'}
+    - {role: htpasswd, tags: 'htpasswd'}
+    - {role: php74, tags: 'php'}
+    - {role: transmission, tags: 'transmission'}
+    - {role: certbot, tags: 'certbot'}
+    - {role: nginx, tags: 'nginx'}
+  vars_files:
+    - vars/ovh.yml
+  vars:
+    system:
+      os:
+        hostname: 'pitou-server'
+    user:
+      users:
+        pitou:
+          name: 'pitou'
+          groups: ['pitou', 'www-data']
+          sudo: ['100-pitou-nginx']
+        www-data:
+          name: 'www-data'
+          groups: ['pitou', 'www-data']
+    ssh:
+      authorized_keys:
+        pierre:
+          file: 'pierre.pub'
+          user: 'pitou'
+        github:
+          file: 'github.pub'
+          user: 'pitou'
+    static:
+      pierrelemee:
+        source: 'pierrelemee'
+        destination: '/var/shared'
+        user: 'pitou'
+        group: 'pitou'
+        mode: 644
+      decostyl:
+        source: 'decostyl'
+        destination: '/var/shared'
+        user: 'pitou'
+        group: 'pitou'
+        mode: 644
+    htpassword:
+      pitou:
+        file: '/etc/nginx/pierrelemee.htpasswd'
+        username: 'pitou'
+        password: 'rdhead'
+      lea:
+        file: '/etc/nginx/pierrelemee.htpasswd'
+        username: 'lea'
+        password: '110590'
+    nginx:
+      sites:
+        pierrelemee:
+          domain: 'pierrelemee.fr'
+          root_dir: '/var/www/pierrelemee/current/public'
+          template: 'site-symfony4.j2'
+          www_redirect: true
+        decostyl:
+          domain: 'deco-styl.com'
+          root_dir: '/var/www/decostyl/current/public'
+          template: 'site-symfony4.j2'
+          www_redirect: true
+        private:
+          domain: 'private.pierrelemee.fr'
+          ssl_domain: 'pierrelemee.fr'
+          # To add new disks https://www.scaleway.com/en/docs/how-to-mount-and-format-a-block-volume/
+          root_dir: '/media/data/transmission/downloads'
+          template: 'site-static.j2'
+          www_redirect: false
+          htpasswd: '/etc/nginx/pierrelemee.htpasswd'
+        torrent:
+          domain: 'torrent.pierrelemee.fr'
+          ssl_domain: 'pierrelemee.fr'
+          proxy_url: 'http://127.0.0.1:9091'
+          template: 'site-proxy.j2'
+          www_redirect: false
+          htpasswd: '/etc/nginx/pierrelemee.htpasswd'
+

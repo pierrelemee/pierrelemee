@@ -1,0 +1,16 @@
+---
+- name: install Python passlib
+  pip:
+    name: passlib
+
+- name: Create Basic Auth password files
+  htpasswd:
+    path: '{{ item.value.file }}'
+    name: '{{ item.value.username }}'
+    password: '{{ item.value.password }}'
+    owner: www-data
+    group: www-data
+    mode: 0644
+  with_dict: "{{ htpassword|default({}) }}"
+  when:
+    - item|lower != 'none'

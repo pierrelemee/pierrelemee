@@ -1,0 +1,9 @@
+---
+- name: Copy files & directories
+  copy:
+    src: "{{ item.value.source }}"
+    dest: "{{ item.value.destination }}"
+    owner: "{{ item.value.user }}"
+    group: "{{ item.value.group }}"
+    mode: "{{ item.value.mode|default('600') }}"
+  with_dict: "{{ static }}"

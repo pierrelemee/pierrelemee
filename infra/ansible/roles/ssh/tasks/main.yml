@@ -1,0 +1,13 @@
+---
+
+- name: Debug
+  debug:
+    msg: "{{ item }}"
+  with_dict: "{{ ssh.authorized_keys|default({}) }}"
+
+- name: Add authorized keys
+  authorized_key:
+    user: "{{ item.value.user }}"
+    state: present
+    key: "{{ lookup('file', 'files/{{ item.value.file }}') }}"
+  with_dict: "{{ ssh.authorized_keys|default({}) }}"

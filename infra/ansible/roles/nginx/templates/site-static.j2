@@ -1,0 +1,67 @@
+##################
+#
+#  {{ ansible_managed }}
+#
+##################
+server {
+	listen 443 ssl http2;
+	listen [::]:443 ssl http2;
+
+	# SSL
+	ssl_certificate /etc/letsencrypt/live/{{ item.value.ssl_domain|default(item.value.domain) }}/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/{{ item.value.ssl_domain|default(item.value.domain) }}/privkey.pem;
+	ssl_trusted_certificate /etc/letsencrypt/live/{{ item.value.ssl_domain|default(item.value.domain) }}/fullchain.pem;
+
+	server_name {% if item.value.www_redirect|default(false) %}www.{% endif %}{{ item.value.domain }};
+
+	root {{ item.value.root_dir }};
+	autoindex on;
+
+	{% if item.value.enable_logs|default(true) %}
+		error_log {{ item.value.log_dir|default('/var/log/nginx/' ~ item.value.domain) }}/error.log;
+        access_log {{ item.value.log_dir|default('/var/log/nginx/' ~ item.value.domain) }}/access.log;
+	{% else %}
+		error_log off;
+		access_log off;
+	{% endif %}
+
+	{% if item.value.htpasswd is defined %}
+        auth_basic "{{ item.value.auth_message|default('Zone privee') }}";
+        auth_basic_user_file {{ item.value.htpasswd }};
+    {% else %}
+        auth_basic off;
+    {% endif %}
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}
+
+# HTTP redirect
+server {
+	listen 80;
+	listen [::]:80;
+
+	server_name {{ item.value.domain }};
+
+	location / {
+		{% if item.value.www_redirect|default(true) %}
+		return 301 https://www.{{ item.value.domain }}$request_uri;
+		{% else %}
+		return 301 https://{{ item.value.domain }}$request_uri;
+		{% endif %}
+	}
+}
+
+{% if item.value.www_redirect|default(false) %}
+server {
+	listen 443 ssl;
+	listen [::]:443 ssl;
+
+	server_name {{ item.value.domain }};
+
+	location / {
+		return 301 https://www.{{ item.value.domain }}$request_uri;
+	}
+}
+{% endif %}

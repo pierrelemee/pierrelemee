@@ -1,0 +1,19 @@
+##################
+#
+#  {{ ansible_managed }}
+#
+##################
+
+PS1='\[\033[01;31m\]\u@\H \[\033[01;34m\]\w $\[\033[00m\] '
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+fi
+
+# some more ls aliases
+alias ll='ls -l'
+alias la='ls -lah'
+alias l='ls -CF'

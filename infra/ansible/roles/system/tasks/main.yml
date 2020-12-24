@@ -1,0 +1,54 @@
+---
+- name: APT Update
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+
+- name: Install generic tools
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+      - python-apt
+      - python3-pip
+      - apt-transport-https
+      - ca-certificates
+      - vim
+      - curl
+      - htop
+      - unzip
+      - rsync
+      - acl
+
+
+- name: Ensure a locale exists
+  locale_gen:
+    name: fr_FR.UTF-8
+    state: present
+
+- name: Set timezone
+  timezone:
+    name: Europe/Paris
+
+- name: Set etc hostname
+  copy:
+    content: "{{ system.os.hostname }}"
+    dest: /etc/hostname
+    mode: 0644
+    owner: root
+    group: root
+  when: system.os.hostname is defined
+
+- name: Set etc hosts name
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '^127.0.0.1 (.*)'
+    line: '127.0.0.1 {{ system.os.hostname }} \1'
+    backrefs: yes
+  when: system.os.hostname is defined
+
+- name: Set cli host name
+  command: hostname "{{ system.os.hostname }}"
+  when: system.os.hostname is defined
+
