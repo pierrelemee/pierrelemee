@@ -16,3 +16,10 @@
   service:
     name: fail2ban
     state: restarted
+
+### MySQL
+
+- name: restart mysql
+  service:
+    name: mysqld
+    state: restarted

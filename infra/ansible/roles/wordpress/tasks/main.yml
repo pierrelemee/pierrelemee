@@ -1,0 +1,108 @@
+---
+- name: Check if Wordpress is already installed.
+  stat:
+    path: "{{ wordpress.path|default('/var/www/wordpress') }}"
+  register: wordpress_installed
+
+- name: Download WordPress
+  get_url:
+    url: "https://fr.wordpress.org/wordpress-{{ wordpress.version }}-fr_FR.tar.gz"
+    dest: "/tmp/wordress-{{ wordpress.version }}.tar.gz"
+    checksum: "sha1:{{ wordpress.sha1 }}"
+    mode: 0775
+    owner: pitou
+    group: pitou
+  when:
+    - wordpress_installed.stat.exists == false
+
+- name: Ensures root dir exists
+  file:
+    path: "/tmp/wordpress/{{ wordpress.version }}"
+    state: directory
+
+- name: Extract archive
+  unarchive:
+    src: "/tmp/wordress-{{ wordpress.version }}.tar.gz"
+    remote_src: yes
+    dest: "/tmp/wordpress/{{ wordpress.version }}"
+    owner: pitou
+    group: pitou
+    mode: 0775
+  when:
+    - wordpress_installed.stat.exists == false
+
+- name: Move foo to bar
+  command: "mv /tmp/wordpress/{{ wordpress.version }}/wordpress {{ wordpress.path|default('/var/www/wordpress') }}"
+  when:
+    - wordpress_installed.stat.exists == false
+
+- name: Fetch random salts for WordPress config
+  local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
+  register: "wp_salt"
+  become: no
+  become_method: sudo
+  when:
+    - wordpress_installed.stat.exists == false
+
+- name: Copy WordPress config file
+  template:
+    src: wp-config.php.j2
+    dest: "{{ wordpress.path|default('/var/www/wordpress') }}/wp-config.php"
+    owner: pitou
+    group: www-data
+    mode: 0775
+  when:
+    - wordpress_installed.stat.exists == false
+
+- name: Change ownership of WordPress installation
+  file:
+    path: "{{ wordpress.path|default('/var/www/wordpress') }}"
+    owner: pitou
+    group: www-data
+    state: directory
+    recurse: yes
+    # setype: httpd_sys_content_t
+  when:
+    - wordpress_installed.stat.exists == false
+
+- name: Change FTP method
+  lineinfile:
+    dest:  "{{ wordpress.path|default('/var/www/wordpress') }}/wp-config.php"
+    regexp: "FS_METHOD"
+    line: "define('FS_METHOD', 'direct');"
+  when:
+    - wordpress_installed.stat.exists == false
+
+- name: Define Wordpress home URL
+  lineinfile:
+    path: "{{ wordpress.path|default('/var/www/wordpress') }}/wp-config.php"
+    regexp: "WP_HOME"
+    line: "define('WP_HOME', '{{ wordpress.url }}');"
+  when:
+    - wordpress_installed.stat.exists == false
+    - wordpress.url is defined
+
+- name: Define Wordpress home website URL
+  lineinfile:
+    path: "{{ wordpress.path|default('/var/www/wordpress') }}/wp-config.php"
+    regexp: "WP_SITEURL"
+    line: "define('WP_SITEURL', '{{ wordpress.url }}');"
+  when:
+    - wordpress_installed.stat.exists == false
+    - wordpress.url is defined
+
+- name: Force HTTPS on Wordpress site
+  lineinfile:
+    path: "{{ wordpress.path|default('/var/www/wordpress') }}/index.php"
+    regexp: "^$_SERVER['HTTPS']"
+    line: "$_SERVER['HTTPS']"
+  when:
+    - wordpress_installed.stat.exists == false
+    - wordpress.force_https|default(true)
+
+- name: Remove Tarball
+  file:
+    path: "/tmp/wordress-{{ wordpress.version }}.tar.gz"
+    state: absent
+  when:
+    - wordpress_installed.stat.exists == false

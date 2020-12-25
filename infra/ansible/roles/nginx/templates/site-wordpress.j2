@@ -1,0 +1,93 @@
+##################
+#
+#  {{ ansible_managed }}
+#
+##################
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    # SSL
+    ssl_certificate /etc/letsencrypt/live/{{ item.value.ssl_domain|default(item.value.domain) }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ item.value.ssl_domain|default(item.value.domain) }}/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/{{ item.value.ssl_domain|default(item.value.domain) }}/fullchain.pem;
+
+    {% if item.value.allow is defined %}
+    allow {{ item.value.allow }};
+    # drop rest of the world
+    deny all;
+    {% endif %}
+
+    {% if item.value.www_redirect|default(true) %}
+    server_name www.{{ item.value.domain }};
+    {% else %}
+    server_name {{ item.value.domain }};
+    {% endif %}
+
+    root {{ item.value.root_dir }};
+
+    {% if item.value.enable_logs|default(true) %}
+        error_log /var/log/nginx/{{ item.value.domain }}_error.log;
+        access_log /var/log/nginx/{{ item.value.domain }}_access.log;
+    {% else %}
+        error_log off;
+        access_log off;
+    {% endif %}
+
+    # Deny access to any files with a .php extension in the uploads directory
+    location ~* /(?:uploads|files)/.*\.php$ {
+        deny all;
+    }
+
+    location /wp-admin/ {
+        client_max_body_size 16M;
+        index /blog/wp-admin/index.php;
+    }
+
+    location / {
+        try_files $uri /index.php?$args;
+    }
+
+    location ~* \.(gif|jpg|jpeg|png|css|js)$ {
+        expires max;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_index index.php;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+        fastcgi_param   SCRIPT_FILENAME
+        $document_root$fastcgi_script_name;
+        include       fastcgi_params;
+    }
+}
+
+# HTTP redirect
+server {
+listen 80;
+listen [::]:80;
+
+server_name {{ item.value.domain }};
+
+location / {
+{% if item.value.www_redirect|default(true) %}
+    return 301 https://www.{{ item.value.domain }}$request_uri;
+{% else %}
+    return 301 https://{{ item.value.domain }}$request_uri;
+{% endif %}
+}
+}
+
+{% if item.value.www_redirect|default(true) %}
+    server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name {{ item.value.domain }};
+
+    location / {
+    return 301 https://www.{{ item.value.domain }}$request_uri;
+    }
+    }
+{% endif %}

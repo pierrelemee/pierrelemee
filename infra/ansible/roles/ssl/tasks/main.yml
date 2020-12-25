@@ -1,0 +1,65 @@
+---
+- name: Install certbot
+  pip:
+    name:
+      - certbot
+      - cryptography
+      - certbot-dns-route53
+      - certbot-dns-cloudflare
+    state: latest
+    extra_args: --upgrade
+
+- name: Copy logrotate conf
+  copy:
+    src: files/logrotate
+    dest: /etc/logrotate.d/certbot
+    mode: 0644
+    owner: root
+    group: root
+
+- name: Copy cron renew
+  copy:
+    src: files/cron
+    dest: /etc/cron.d/certbot
+    mode: 0644
+    owner: root
+    group: root
+
+- name: Check if OVH config is installed.
+  stat:
+    path: '/root/.ovh-credentials.ini.j2'
+  register: ovh_config_installed
+
+- name: Add OVH credentials file
+  template:
+    src: ovh-credentials.ini.j2
+    dest: /root/.ovh-credentials.ini
+    mode: 0600
+    owner: root
+    group: root
+  when: ovh_config_installed.stat.exists == false
+
+- name: Check if ovh SSL certificates already exist
+  stat:
+    path: "/etc/letsencrypt/live/{{ item[2:] if item.startswith('*.') else item }}"
+  register: ssl_domains_ovh
+  with_items: "{{ ssl.ovh.domains|default([]) }}"
+  when:
+    - ssl.ovh is defined
+
+- name: Debug
+  debug:
+    msg: "{{ ssl_domains_ovh.results }}"
+
+- name: Generate SSL certificates via ovh DNS
+  command: |
+    /usr/local/bin/certbot certonly \
+    --dns-ovh --dns-ovh-credential=/root/.ovh-credentials.ini --dns-ovh-propagation-seconds 60 \
+    --non-interactive --agree-tos --email 'pierre@pierrelemee.fr' \
+    -d "{{ item.item }}"
+  environment:
+    ovh_CONFIG_FILE: '/root/.ovh.ini'
+  with_items: "{{ ssl_domains_ovh.results }}"
+  when:
+    - ssl.ovh is defined
+    - item.stat.exists == False

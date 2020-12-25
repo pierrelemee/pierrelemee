@@ -1,0 +1,53 @@
+##################
+#
+#  {{ ansible_managed }}
+#
+##################
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    # SSL
+    ssl_certificate /etc/letsencrypt/live/{{ item.value.ssl_domain|default(item.value.domain) }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ item.value.ssl_domain|default(item.value.domain) }}/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/{{ item.value.ssl_domain|default(item.value.domain) }}/fullchain.pem;
+
+    {% if item.value.www_redirect|default(false) %}
+    server_name www.{{ item.value.domain }};
+    {% else %}
+    server_name {{ item.value.domain }};
+    {% endif %}
+
+    location / {
+        return 301 https://{{ item.value.redirect_domain }}$request_uri;
+    }
+}
+
+# HTTP redirect
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name {{ item.value.domain }};
+
+    location / {
+    {% if item.value.www_redirect|default(true) %}
+        return 301 https://www.{{ item.value.domain }}$request_uri;
+    {% else %}
+        return 301 https://{{ item.value.domain }}$request_uri;
+    {% endif %}
+    }
+}
+
+{% if item.value.www_redirect|default(true) %}
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name {{ item.value.domain }};
+
+    location / {
+    return 301 https://www.{{ item.value.domain }}$request_uri;
+    }
+}
+{% endif %}
