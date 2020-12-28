@@ -1,0 +1,131 @@
+---
+- name: Check if MySQL is already installed.
+  stat: path=/etc/init.d/mysql
+  register: mysql_installed
+
+- name: Download
+  get_url:
+    url: https://dev.mysql.com/get/mysql-apt-config_0.8.14-1_all.deb
+    dest: /tmp/mysql-apt-config_0.8.14-1_all.deb
+    checksum: md5:5cc94c7720fcd3124449b3e789441b98
+    mode: 0700
+  when: mysql_installed.stat.exists == false
+
+- name: Select MySQL community edition server 8.0
+  debconf:
+    name: mysql-apt-config
+    question: mysql-apt-config/select-server
+    value: 'mysql-8.0'
+    vtype: select
+
+- name: Add MySQL apt
+  apt:
+    deb: /tmp/mysql-apt-config_0.8.14-1_all.deb
+    force: yes
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+  when: mysql_installed.stat.exists == false
+
+#  export DEBIAN_FRONTEND="noninteractive";
+#  echo mysql-apt-config mysql-apt-config/select-server select mysql-8.0 | sudo debconf-set-selections;
+
+- name: Prepare MySQL root password
+  debconf:
+    name: mysql-community-server
+    question: mysql-community-server/root-pass
+    value: "{{ mysql.root_password }}"
+    vtype: password
+  when: mysql_installed.stat.exists == false
+
+- name: Prepare MySQL root password (confirm)
+  debconf:
+    name: mysql-community-server
+    question: mysql-community-server/re-root-pass
+    value: "{{ mysql.root_password }}"
+    vtype: password
+  when: mysql_installed.stat.exists == false
+
+- name: Install MySQL
+  apt:
+    name: "{{ packages }}"
+    state: latest
+    update_cache: yes
+    force: yes
+  vars:
+    packages:
+      - python-mysqldb
+      - python-pymysql
+      - mysql-common
+      - mysql-server
+      - mysql-client
+  when: mysql_installed.stat.exists == false
+
+- name: Check if MySQL is already pipmed.
+  stat:
+    path: /etc/mysql/conf.d/ignition.cnf
+  register: mysql_pimped
+
+- name: Copy .my.cnf in root home
+  template:
+      src: root.my.cnf.j2
+      dest: /root/.my.cnf
+      owner: root
+      group: root
+      mode: 0600
+  when: mysql_pimped.stat.exists == false
+
+- name: Add Ignition config
+  template:
+      src: mysql.conf.j2
+      dest: /etc/mysql/conf.d/ignition.cnf
+      owner: root
+      group: root
+      mode: 0644
+  when: mysql_pimped.stat.exists == false
+
+- name: Clean install files
+  file:
+      path: /tmp/mysql-apt-config_0.8.14-1_all.deb
+      state: absent
+  notify:
+      - restart mysql
+
+- name: Install pymysql python module
+  pip:
+    name: pymysql
+
+- name: Create databases
+  mysql_db:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: "{{ item.value.name }}"
+    encoding: "{{ item.value.encoding|default('utf8') }}"
+    collation: "{{ item.value.collation|default('utf8_general_ci') }}"
+    state: present
+  with_dict: "{{ mysql.databases|default({}) }}"
+  when:
+    - item.value.create|default(true)
+
+- name: Create user
+  mysql_user:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    host: localhost
+    name: "{{ item.value.user }}"
+    password: "{{ item.value.password }}"
+    priv: '{{ item.value.name }}.*:SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,REFERENCES,INDEX,ALTER,LOCK TABLES'
+    state: present
+  with_dict: "{{ mysql.databases|default({}) }}"
+  when:
+    - item.value.create|default(true)
+
+# Allow to connect using mysql --defaults-extra-file=~/.<connection-name>.my.cnf
+- name: Add connection to MySQL config file
+  template:
+    src: my.cnf.j2
+    dest: "/home/{{ item.1 }}/.{{ item.0.name }}.my.cnf"
+    owner: "{{ item.1 }}"
+    group: "{{ item.1 }}"
+    mode: "0644"
+  with_subelements:
+    - "{{ mysql.databases|default({}) }}"
+    - 'clients'
+    - skip_missing: true

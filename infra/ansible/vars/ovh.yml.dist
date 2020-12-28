@@ -1,5 +1,0 @@
-# Go to https://api.ovh.com/createToken/ to generate credentials
-ovh:
-    app_key: <APP_KEY>
-    app_secret: <APP_SECRET>
-    consumer_key: <CONSUMER_KEY>

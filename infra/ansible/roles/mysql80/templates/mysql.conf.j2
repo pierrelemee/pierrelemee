@@ -1,0 +1,31 @@
+    ##################
+#
+#  {{ ansible_managed }}
+#
+##################
+[client]
+default-character-set = utf8mb4
+
+[mysql]
+default-character-set = utf8mb4
+
+[mysqld]
+sql_mode=''
+character-set-client-handshake = FALSE
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+
+max_allowed_packet = 64M
+
+# Max memory dedicated to innodb to store row-data, index, buffer...
+# Max 80% of RAM on dedicated server
+# don't tweek it at this time
+#innodb_buffer_pool_size = 512M
+
+# File where Innodb write log and perform some task.
+# Should be large enough to contains 1h activity
+# bigger will only delay recovery time.
+innodb_log_file_size = 64M
+
+#turn Off binlog because we don't care about replication
+skip-log-bin

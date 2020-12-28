@@ -9,10 +9,11 @@
     - {role: htpasswd, tags: 'htpasswd'}
     - {role: php74, tags: 'php'}
     - {role: transmission, tags: 'transmission'}
-    - {role: certbot, tags: 'certbot'}
+    - {role: mysql80, tags: 'mysql'}
+    - {role: wordpress, tags: 'wordpress'}
+    - {role: ssl, tags: 'ssl'}
     - {role: nginx, tags: 'nginx'}
-  vars_files:
-    - vars/ovh.yml
+
   vars:
     system:
       os:
@@ -56,6 +57,33 @@
         file: '/etc/nginx/pierrelemee.htpasswd'
         username: 'lea'
         password: '110590'
+
+    mysql:
+      root_password: '9ASnT6YYdp7DnLpD'
+      databases:
+        metabase:
+          name: 'fabriquebienetre'
+          user: 'fabriquebienetre'
+          password: 'xsD3LERsKf6m96rC'
+          clients: [ 'pitou' ]
+
+    wordpress:
+      version: 5.6
+      sha1: 4802388640294e70820e6bf4aba681f5befa1d45
+      path: '/var/www/fabriquebienetre'
+      url: 'https://fabrique-du-bien-etre.com'
+
+    ssl:
+      ovh:
+        app_key: 'NZWsE3rHG6EvUVSX'
+        app_secret: 'bQomeYNGJyqjBHWnEZM9zOizcrkwhgix'
+        consumer_key: 'd0jo9Do1pEh6TAEvvE8xqLaV8bkxG1K0'
+        domains:
+          - '*.pierrelemee.fr'
+          - '*.deco-styl.com'
+          - 'fabrique-de-bien-etre.com'
+          - 'www.fabrique-de-bien-etre.com'
+
     nginx:
       sites:
         pierrelemee:
@@ -81,6 +109,19 @@
           ssl_domain: 'pierrelemee.fr'
           proxy_url: 'http://127.0.0.1:9091'
           template: 'site-proxy.j2'
+          www_redirect: false
+          htpasswd: '/etc/nginx/pierrelemee.htpasswd'
+        fabriquebienetre:
+          domain: 'fabrique-de-bien-etre.com'
+          ssl_domain: 'fabrique-de-bien-etre.com-0001'
+          root_dir: '/var/www/fabriquebienetre'
+          template: 'site-wordpress.j2'
+          www_redirect: false
+          htpasswd: '/etc/nginx/pierrelemee.htpasswd'
+        wwwbienetre:
+          domain: 'www.fabrique-de-bien-etre.com'
+          redirect_domain: 'fabrique-de-bien-etre.com'
+          template: 'site-redirect.j2'
           www_redirect: false
           htpasswd: '/etc/nginx/pierrelemee.htpasswd'
 
